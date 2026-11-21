@@ -1,0 +1,381 @@
+{
+ "duration": 27.52,
+ "language": "en",
+ "words": [
+  {
+   "w": "Okay",
+   "start": 0.0,
+   "end": 0.3
+  },
+  {
+   "w": "class,",
+   "start": 0.3,
+   "end": 0.58
+  },
+  {
+   "w": "quick",
+   "start": 1.02,
+   "end": 1.16
+  },
+  {
+   "w": "question.",
+   "start": 1.16,
+   "end": 1.54
+  },
+  {
+   "w": "Where",
+   "start": 2.04,
+   "end": 2.3
+  },
+  {
+   "w": "does",
+   "start": 2.3,
+   "end": 2.48
+  },
+  {
+   "w": "an",
+   "start": 2.48,
+   "end": 2.62
+  },
+  {
+   "w": "octopus",
+   "start": 2.62,
+   "end": 2.96
+  },
+  {
+   "w": "keep",
+   "start": 2.96,
+   "end": 3.36
+  },
+  {
+   "w": "its",
+   "start": 3.36,
+   "end": 3.56
+  },
+  {
+   "w": "brain?",
+   "start": 3.56,
+   "end": 3.92
+  },
+  {
+   "w": "In",
+   "start": 4.56,
+   "end": 4.68
+  },
+  {
+   "w": "its",
+   "start": 4.68,
+   "end": 4.82
+  },
+  {
+   "w": "head,",
+   "start": 4.82,
+   "end": 5.1
+  },
+  {
+   "w": "right?",
+   "start": 5.18,
+   "end": 5.4
+  },
+  {
+   "w": "Well,",
+   "start": 5.96,
+   "end": 6.32
+  },
+  {
+   "w": "mostly",
+   "start": 6.72,
+   "end": 7.22
+  },
+  {
+   "w": "not.",
+   "start": 7.22,
+   "end": 7.54
+  },
+  {
+   "w": "An",
+   "start": 8.18,
+   "end": 8.34
+  },
+  {
+   "w": "octopus",
+   "start": 8.34,
+   "end": 8.72
+  },
+  {
+   "w": "has",
+   "start": 8.72,
+   "end": 9.12
+  },
+  {
+   "w": "around",
+   "start": 9.12,
+   "end": 9.34
+  },
+  {
+   "w": "500",
+   "start": 9.34,
+   "end": 9.94
+  },
+  {
+   "w": "million",
+   "start": 9.94,
+   "end": 10.72
+  },
+  {
+   "w": "neurons",
+   "start": 10.72,
+   "end": 11.26
+  },
+  {
+   "w": "and",
+   "start": 11.26,
+   "end": 11.8
+  },
+  {
+   "w": "about",
+   "start": 11.8,
+   "end": 11.96
+  },
+  {
+   "w": "two",
+   "start": 11.96,
+   "end": 12.28
+  },
+  {
+   "w": "thirds",
+   "start": 12.28,
+   "end": 12.56
+  },
+  {
+   "w": "of",
+   "start": 12.56,
+   "end": 12.78
+  },
+  {
+   "w": "them",
+   "start": 12.78,
+   "end": 12.94
+  },
+  {
+   "w": "are",
+   "start": 12.94,
+   "end": 13.14
+  },
+  {
+   "w": "in",
+   "start": 13.14,
+   "end": 13.22
+  },
+  {
+   "w": "its",
+   "start": 13.22,
+   "end": 13.36
+  },
+  {
+   "w": "arms.",
+   "start": 13.36,
+   "end": 13.84
+  },
+  {
+   "w": "Each",
+   "start": 14.48,
+   "end": 14.7
+  },
+  {
+   "w": "arm",
+   "start": 14.7,
+   "end": 15.04
+  },
+  {
+   "w": "can",
+   "start": 15.04,
+   "end": 15.24
+  },
+  {
+   "w": "touch,",
+   "start": 15.24,
+   "end": 15.62
+  },
+  {
+   "w": "taste,",
+   "start": 15.96,
+   "end": 16.14
+  },
+  {
+   "w": "and",
+   "start": 16.48,
+   "end": 16.62
+  },
+  {
+   "w": "work",
+   "start": 16.62,
+   "end": 16.86
+  },
+  {
+   "w": "out",
+   "start": 16.86,
+   "end": 17.08
+  },
+  {
+   "w": "simple",
+   "start": 17.08,
+   "end": 17.4
+  },
+  {
+   "w": "movements",
+   "start": 17.4,
+   "end": 17.9
+  },
+  {
+   "w": "by",
+   "start": 17.9,
+   "end": 18.16
+  },
+  {
+   "w": "itself.",
+   "start": 18.16,
+   "end": 18.6
+  },
+  {
+   "w": "So",
+   "start": 19.14,
+   "end": 19.44
+  },
+  {
+   "w": "when",
+   "start": 19.44,
+   "end": 19.66
+  },
+  {
+   "w": "an",
+   "start": 19.66,
+   "end": 19.78
+  },
+  {
+   "w": "octopus",
+   "start": 19.78,
+   "end": 20.12
+  },
+  {
+   "w": "reaches",
+   "start": 20.12,
+   "end": 20.48
+  },
+  {
+   "w": "for",
+   "start": 20.48,
+   "end": 20.76
+  },
+  {
+   "w": "a",
+   "start": 20.76,
+   "end": 20.88
+  },
+  {
+   "w": "shell,",
+   "start": 20.88,
+   "end": 21.14
+  },
+  {
+   "w": "the",
+   "start": 21.58,
+   "end": 21.68
+  },
+  {
+   "w": "arm",
+   "start": 21.68,
+   "end": 22.06
+  },
+  {
+   "w": "does",
+   "start": 22.06,
+   "end": 22.22
+  },
+  {
+   "w": "a",
+   "start": 22.22,
+   "end": 22.36
+  },
+  {
+   "w": "lot",
+   "start": 22.36,
+   "end": 22.48
+  },
+  {
+   "w": "of",
+   "start": 22.48,
+   "end": 22.58
+  },
+  {
+   "w": "the",
+   "start": 22.58,
+   "end": 22.68
+  },
+  {
+   "w": "thinking.",
+   "start": 22.68,
+   "end": 22.98
+  },
+  {
+   "w": "Next",
+   "start": 23.58,
+   "end": 23.82
+  },
+  {
+   "w": "time",
+   "start": 23.82,
+   "end": 24.02
+  },
+  {
+   "w": "someone",
+   "start": 24.02,
+   "end": 24.32
+  },
+  {
+   "w": "says",
+   "start": 24.32,
+   "end": 24.62
+  },
+  {
+   "w": "use",
+   "start": 24.62,
+   "end": 25.12
+  },
+  {
+   "w": "your",
+   "start": 25.12,
+   "end": 25.32
+  },
+  {
+   "w": "head,",
+   "start": 25.32,
+   "end": 25.66
+  },
+  {
+   "w": "tell",
+   "start": 26.04,
+   "end": 26.3
+  },
+  {
+   "w": "them",
+   "start": 26.3,
+   "end": 26.44
+  },
+  {
+   "w": "about",
+   "start": 26.44,
+   "end": 26.66
+  },
+  {
+   "w": "the",
+   "start": 26.66,
+   "end": 26.82
+  },
+  {
+   "w": "octopus.",
+   "start": 26.82,
+   "end": 27.14
+  }
+ ]
+}

@@ -7,12 +7,14 @@ import tardigrade from './words/tardigrade.words.json'
 import earthrise from './words/earthrise.words.json'
 import gage from './words/gage.words.json'
 import chills from './words/chills.words.json'
+import octopus from './words/octopus.words.json'
 
 export const creators = {
   markou: { name: 'Dr. Eleni Markou', handle: 'eleni.markou', field: 'Classical archaeology', route: 'studio', initials: 'EM', hue: 38 },
   wolff: { name: 'Prof. Jonas Wolff', handle: 'prof.wolff', field: 'Cognitive psychology', route: 'self', initials: 'JW', hue: 228 },
   okafor: { name: 'Dr. Ada Okafor', handle: 'ada.okafor', field: 'Astrobiology', route: 'self', initials: 'AO', hue: 300 },
   laine: { name: 'Dr. Mira Laine', handle: 'mira.laine', field: 'History of science', route: 'studio', initials: 'ML', hue: 200 },
+  lind: { name: 'Dr. Nora Lind', handle: 'nora.lind', field: 'Marine biology', route: 'studio', initials: 'NL', hue: 170 },
   chen: { name: 'Dr. Lucas Chen', handle: 'lucas.neuro', field: 'Neuroscience', route: 'studio', initials: 'LC', hue: 12 },
 }
 
@@ -21,6 +23,7 @@ export const series = {
   memory: { title: 'How memory really works', creator: 'wolff' },
   space: { title: 'Life beyond the sky', creator: 'okafor' },
   myths: { title: 'Brain myths, corrected', creator: 'chen' },
+  animals: { title: 'Animal minds', creator: 'lind' },
 }
 
 export const videos = [
@@ -61,6 +64,19 @@ export const videos = [
       media: 'Image: SEM of Milnesium tardigradum, Schokraie et al. (2012), PLOS ONE (CC BY 2.5).',
     },
     quiz: { q: 'How did the tardigrades survive the trip?', options: ['In a dried-out state', 'Inside the capsule', 'Frozen in ice'], answer: 0 },
+  },
+  {
+    id: 'octopus', creator: 'lind', series: 'animals', minAge: 0, words: octopus,
+    title: 'Where does an octopus think?',
+    caption: 'Two thirds of its neurons are not in its head. Class is in session.',
+    likes: '301K', saves: '44.8K',
+    source: {
+      kind: 'Peer-reviewed review',
+      citation: 'Hochner, B. (2012). An embodied view of octopus neurobiology. Current Biology, 22(20), R887-R892.',
+      doi: '10.1016/j.cub.2012.09.001',
+      media: 'Animation made by Wake Studio with AI video tools (Kling 2.5), checked against the source.',
+    },
+    quiz: { q: 'Where are most of an octopus’s neurons?', options: ['In its head', 'In its arms', 'In its eyes'], answer: 1 },
   },
   {
     id: 'earthrise', creator: 'okafor', series: 'space', minAge: 0, words: earthrise,

@@ -60,7 +60,7 @@ export function SourceSheet({ video, onClose }) {
       </div>
       <div className="row">
         <span style={{ display: 'flex', gap: 10 }}><Sparkles size={18} color="var(--sun)" style={{ flex: 'none' }} />
-          <span>Why you are seeing this: you picked <b>{{ ancient: 'History', memory: 'Psychology', space: 'Space', myths: 'The brain' }[video.series]}</b> when you joined.</span></span>
+          <span>Why you are seeing this: you picked <b>{{ ancient: 'History', memory: 'Psychology', space: 'Space', myths: 'The brain', animals: 'Biology' }[video.series]}</b> when you joined.</span></span>
       </div>
     </Sheet>
   )

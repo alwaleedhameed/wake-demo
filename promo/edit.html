@@ -25,8 +25,8 @@
   .backlogo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;justify-items:center;gap:10px}
   .backlogo span{font-family:'Bricolage Grotesque';font-weight:800;font-size:44px;color:#c9cfdd;letter-spacing:.08em}
   #end{position:absolute;right:170px;top:340px;opacity:0;text-align:left}
-  #end .logo{display:flex;align-items:flex-end;gap:26px;font-family:'Bricolage Grotesque';font-weight:800;font-size:190px;line-height:.75;color:#eef1fa;letter-spacing:.02em}
-  #end .slogan{font-family:'Bricolage Grotesque';font-weight:800;font-size:70px;color:#ffc857;margin-top:48px}
+  #end .logo{display:flex;align-items:flex-end;gap:26px;font-family:'Bricolage Grotesque';font-weight:800;font-size:190px;line-height:.75;color:#2a1446;letter-spacing:.02em}
+  #end .slogan{font-family:'Bricolage Grotesque';font-weight:800;font-size:70px;color:#fff;margin-top:48px;text-shadow:0 4px 20px #a2385a88}
 </style></head><body>
 <div id="shots"></div>
 <canvas id="c" width="1920" height="1080"></canvas>
@@ -35,7 +35,7 @@
     <div class="backlogo"><svg width="150" height="125" viewBox="0 0 48 40"><path d="M8 30a16 16 0 0 1 32 0z" fill="#ffc857"/><rect x="2" y="32" width="44" height="4" rx="2" fill="#c9cfdd"/></svg><span>WAKE</span></div></div>
   <div class="face front"><div id="strip"><img src="shots/demo1.png"><img src="shots/demo2.png"><img src="shots/demo3.png"></div></div>
 </div></div>
-<div id="end"><div class="logo"><svg width="230" height="190" viewBox="0 0 48 40"><path id="endsun" d="M8 30a16 16 0 0 1 32 0z" fill="#ffc857"/><rect x="2" y="32" width="44" height="4" rx="2" fill="#eef1fa"/></svg>WAKE</div>
+<div id="end"><div class="logo"><svg width="230" height="190" viewBox="0 0 48 40"><path id="endsun" d="M8 30a16 16 0 0 1 32 0z" fill="#fff"/><rect x="2" y="32" width="44" height="4" rx="2" fill="#2a1446"/></svg>WAKE</div>
   <div class="slogan">Wake up to knowledge.</div></div>
 <div id="words"></div>
 <script src="../feed-videos/scenes/common.js"></script>
@@ -160,21 +160,29 @@ function outro(t) {
   const on = t >= 24.2;
   $("stage").style.opacity = on ? 1 : 0;
   if (!on) { $("end").style.opacity = 0; return; }
-  // Dawn background that brightens towards the logo.
-  const g = ctx.createRadialGradient(960, 1250, 100, 960, 1250, 1300);
-  g.addColorStop(0, `rgba(255,200,87,${0.25 + 0.35 * prog(t, 26.5, 2)})`); g.addColorStop(1, "rgba(255,200,87,0)");
-  ctx.fillStyle = "#0f1630"; ctx.fillRect(0, 0, 1920, 1080); ctx.fillStyle = g; ctx.fillRect(0, 0, 1920, 1080);
-  // Sparkles
-  for (let i = 0; i < 40; i++) { const tw = 0.5 + 0.5 * Math.sin(t * 5 + i * 1.7); ctx.globalAlpha = tw * 0.8; ctx.fillStyle = i % 3 ? "#fff" : "#ffc857";
-    ctx.beginPath(); ctx.arc(rand(i) * 1920, rand(i + 40) * 1080, 2 + 3 * tw, 0, 7); ctx.fill(); }
+  // A warm, glossy "app reveal" set: sunset gradient, drifting soft light circles, a shadow under the phone.
+  const bg = ctx.createLinearGradient(0, 0, 1920, 1080);
+  bg.addColorStop(0, "#ff7eb3"); bg.addColorStop(0.5, "#ffb36b"); bg.addColorStop(1, "#ffd86b");
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, 1920, 1080);
+  const glow = ctx.createRadialGradient(960, 540, 50, 960, 540, 800);
+  glow.addColorStop(0, "#ffffff88"); glow.addColorStop(1, "#ffffff00"); ctx.fillStyle = glow; ctx.fillRect(0, 0, 1920, 1080);
+  for (let i = 0; i < 18; i++) {
+    const x = (rand(i) * 2200 + (t - 24.2) * (20 + rand(i + 3) * 40)) % 2200 - 140, y = rand(i + 20) * 1080 + Math.sin(t + i) * 20;
+    ctx.globalAlpha = 0.18 + 0.15 * rand(i + 7); ctx.fillStyle = "#fff";
+    ctx.beginPath(); ctx.arc(x, y, 30 + rand(i + 9) * 90, 0, 7); ctx.fill();
+  }
   ctx.globalAlpha = 1;
-  // 24.2: phone flies in showing its back (logo where the Apple logo would be).
-  // 25.0: flips to the screen. 25.6 to 27.0: two swipes through the feed. 27.0: slides left for the logo.
-  const enter = ease(prog(t, 24.2, 0.5));
-  const flip = easeIO(prog(t, 25.0, 0.6)) * 180;
-  const slide = easeIO(prog(t, 26.9, 0.7));
-  const spinIn = (1 - enter) * -540;
-  $("phone").style.transform = `translateX(${slide * -470}px) translateY(${(1 - enter) * 300}px) scale(${lerp(1.5, 1, enter) * lerp(1, 0.92, slide)}) rotateY(${spinIn + flip + Math.sin(t * 1.5) * 4}deg) rotateZ(${(1 - enter) * 12 + slide * -4}deg)`;
+  // Timeline: 24.2 the phone rises in, back first (WAKE logo where the Apple logo would be), floating.
+  // 25.0 it flips to the screen. 25.7 and 26.4 two swipes through the feed. 27.0 it glides left for the logo.
+  const enter = ease(prog(t, 24.2, 0.7));
+  const flip = easeIO(prog(t, 25.0, 0.7)) * 180;
+  const slide = easeIO(prog(t, 26.9, 0.8));
+  const bob = Math.sin((t - 24.2) * 2.2) * 14, tilt = Math.sin((t - 24.2) * 1.4) * 6;
+  const px = slide * -470, py = (1 - enter) * 500 + bob;
+  // Soft shadow on the "floor", shrinking as the phone bobs up.
+  ctx.save(); ctx.globalAlpha = 0.25 * enter; ctx.fillStyle = "#7a2b3a";
+  ctx.beginPath(); ctx.ellipse(960 + px, 1010, 230 - bob * 2, 30, 0, 0, 7); ctx.fill(); ctx.restore();
+  $("phone").style.transform = `translateX(${px}px) translateY(${py}px) scale(${lerp(0.9, 1, enter) * lerp(1, 0.92, slide)}) rotateY(${flip + tilt - 8}deg) rotateX(${4 + Math.cos(t * 1.7) * 3}deg) rotateZ(${-3 + tilt * 0.3}deg)`;
   const swipe1 = easeIO(prog(t, 25.75, 0.4)), swipe2 = easeIO(prog(t, 26.45, 0.4));
   $("strip").style.transform = `translateY(${-(swipe1 + swipe2) * 900}px)`;
   const e = ease(prog(t, 27.1, 0.6));
