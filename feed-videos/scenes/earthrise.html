@@ -16,7 +16,8 @@
 <div id="photo"><img src="earthrise.jpg"></div>
 <canvas id="c" width="720" height="1280"></canvas>
 <div id="bars"></div>
-<div class="t date" id="date" style="top:170px">24 DECEMBER 1968 · APOLLO 8</div>
+<div class="t q" id="q0" style="top:190px;font-size:62px">What happens to your mind when you see your home from space?</div>
+<div class="t date" id="date" style="top:170px">24 DEC 1968 · APOLLO 8</div>
 <div class="t h" id="rise" style="top:220px">Earthrise</div>
 <div class="t q" id="b1" style="top:200px">The borders disappear.</div>
 <div class="t q" id="b2" style="top:200px">Small. Fragile. Whole.</div>
@@ -27,7 +28,7 @@
 <script>
 const $ = (id) => document.getElementById(id);
 const ctx = $("c").getContext("2d");
-const T = { rise: at("Earth"), ast: at("Astronauts"), bord: at("borders"), planet: at("planet"), psy: at("Psychologists"),
+const T = { xmas: at("Christmas"), rise: at("Earth"), ast: at("Astronauts"), bord: at("borders"), planet: at("planet"), psy: at("Psychologists"),
             ov: at("overview"), awe: at("awe"), end: WORDS.duration };
 
 function draw(t) {
@@ -44,7 +45,9 @@ function draw(t) {
     ctx.fillStyle = rand(i + f * 977) > .5 ? "#ffffff14" : "#00000020";
     ctx.fillRect(rand(i * 3 + f) * 720, rand(i * 7 + f) * 1280, 2, 2);
   }
-  show($("date"), t, 0.4, T.rise + 1.5, { dy: 10 });
+  // Opens on a question, then the date answers "when".
+  show($("q0"), t, 0.2, T.xmas - 0.15, { dy: 20, inDur: 0.8 });
+  show($("date"), t, T.xmas, T.rise + 1.5, { dy: 10 });
   show($("rise"), t, T.rise, T.ast - 0.2, { dy: 20, inDur: 0.9 });
   show($("b1"), t, T.bord, T.planet - 0.2, { dy: 20, inDur: 0.7 });
   show($("b2"), t, T.planet, T.psy - 0.2, { dy: 20, inDur: 0.7 });

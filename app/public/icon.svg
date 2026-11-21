@@ -1,6 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Placeholder Wake mark: a sun rising over a horizon line. Swap for the real logo later. -->
-  <rect width="64" height="64" rx="14" fill="#0F1630"/>
-  <path d="M14 40a18 18 0 0 1 36 0z" fill="#FFC857"/>
-  <rect x="10" y="42" width="44" height="4" rx="2" fill="#EEF1FA"/>
+  <!-- Wake app icon: the team's logo on a warm paper tile. -->
+  <rect width="64" height="64" rx="14" fill="#fbf7ee"/>
+  <svg x="3" y="14" width="58" height="30" viewBox="0 0 560 290">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke="#fff" stroke-width="34">
+      <path d="M20 112 L55 225 L93 145 L127 222 L165 82"/>
+      <path d="M170 190 L210 20 L245 180 M185 125 L235 120"/>
+      <path d="M267 100 L269 265 M269 190 L375 105 M276 190 L395 265"/>
+      <path d="M497 22 C445 8 385 40 400 80 C410 100 455 92 490 78 M440 90 C375 100 370 190 425 198 C465 202 505 170 527 145"/>
+    </g>
+    <path stroke="#e8401c" stroke-width="22" d="M20 112 L55 225 L93 145 L127 222 L165 82"/>
+    <path stroke="#7a5cf0" stroke-width="22" d="M170 190 L210 20 L245 180 M185 125 L235 120"/>
+    <path stroke="#1f2fb0" stroke-width="22" d="M267 100 L269 265 M269 190 L375 105 M276 190 L395 265"/>
+    <path stroke="#6e1218" stroke-width="22" d="M497 22 C445 8 385 40 400 80 C410 100 455 92 490 78 M440 90 C375 100 370 190 425 198 C465 202 505 170 527 145"/>
+    <g stroke-width="7">
+      <path stroke="#f2a6d6" d="M66 48 h18 l-18 16 h18"/>
+      <path stroke="#f2c418" d="M305 62 h18 l-18 16 h18"/>
+      <path stroke="#3e9a30" d="M182 237 h16 l-16 15 h16"/>
+      <path stroke="#5ccaa2" d="M483 238 h16 l-16 15 h16"/>
+    </g>
+  </g>
+  </svg>
 </svg>

@@ -1,0 +1,366 @@
+{
+ "duration": 26.56,
+ "language": "en",
+ "words": [
+  {
+   "w": "Okay",
+   "start": 0.0,
+   "end": 0.32
+  },
+  {
+   "w": "class,",
+   "start": 0.32,
+   "end": 0.58
+  },
+  {
+   "w": "quick",
+   "start": 0.96,
+   "end": 1.16
+  },
+  {
+   "w": "experiment.",
+   "start": 1.16,
+   "end": 1.68
+  },
+  {
+   "w": "Try",
+   "start": 2.22,
+   "end": 2.4
+  },
+  {
+   "w": "to",
+   "start": 2.4,
+   "end": 2.58
+  },
+  {
+   "w": "tickle",
+   "start": 2.58,
+   "end": 3.0
+  },
+  {
+   "w": "yourself.",
+   "start": 3.0,
+   "end": 3.3
+  },
+  {
+   "w": "Go",
+   "start": 3.76,
+   "end": 3.88
+  },
+  {
+   "w": "on,",
+   "start": 3.88,
+   "end": 4.04
+  },
+  {
+   "w": "try",
+   "start": 4.2,
+   "end": 4.38
+  },
+  {
+   "w": "it.",
+   "start": 4.38,
+   "end": 4.64
+  },
+  {
+   "w": "Nothing",
+   "start": 5.2,
+   "end": 5.64
+  },
+  {
+   "w": "right?",
+   "start": 5.64,
+   "end": 6.0
+  },
+  {
+   "w": "In",
+   "start": 6.78,
+   "end": 6.92
+  },
+  {
+   "w": "1998,",
+   "start": 6.92,
+   "end": 7.64
+  },
+  {
+   "w": "scientists",
+   "start": 8.0,
+   "end": 8.38
+  },
+  {
+   "w": "in",
+   "start": 8.38,
+   "end": 8.76
+  },
+  {
+   "w": "London",
+   "start": 8.76,
+   "end": 9.06
+  },
+  {
+   "w": "scanned",
+   "start": 9.06,
+   "end": 9.52
+  },
+  {
+   "w": "people's",
+   "start": 9.52,
+   "end": 10.12
+  },
+  {
+   "w": "brains",
+   "start": 10.12,
+   "end": 10.44
+  },
+  {
+   "w": "while",
+   "start": 10.44,
+   "end": 10.78
+  },
+  {
+   "w": "they",
+   "start": 10.78,
+   "end": 10.92
+  },
+  {
+   "w": "were",
+   "start": 10.92,
+   "end": 11.0
+  },
+  {
+   "w": "being",
+   "start": 11.0,
+   "end": 11.2
+  },
+  {
+   "w": "tickled.",
+   "start": 11.2,
+   "end": 11.68
+  },
+  {
+   "w": "When",
+   "start": 12.24,
+   "end": 12.38
+  },
+  {
+   "w": "you",
+   "start": 12.38,
+   "end": 12.52
+  },
+  {
+   "w": "move,",
+   "start": 12.52,
+   "end": 12.92
+  },
+  {
+   "w": "your",
+   "start": 13.18,
+   "end": 13.28
+  },
+  {
+   "w": "brain",
+   "start": 13.28,
+   "end": 13.56
+  },
+  {
+   "w": "predicts",
+   "start": 13.56,
+   "end": 14.1
+  },
+  {
+   "w": "exactly",
+   "start": 14.1,
+   "end": 14.56
+  },
+  {
+   "w": "what",
+   "start": 14.56,
+   "end": 14.84
+  },
+  {
+   "w": "that",
+   "start": 14.84,
+   "end": 15.06
+  },
+  {
+   "w": "touch",
+   "start": 15.06,
+   "end": 15.3
+  },
+  {
+   "w": "will",
+   "start": 15.3,
+   "end": 15.46
+  },
+  {
+   "w": "feel",
+   "start": 15.46,
+   "end": 15.7
+  },
+  {
+   "w": "like",
+   "start": 15.7,
+   "end": 16.0
+  },
+  {
+   "w": "and",
+   "start": 16.0,
+   "end": 16.28
+  },
+  {
+   "w": "turns",
+   "start": 16.28,
+   "end": 16.58
+  },
+  {
+   "w": "the",
+   "start": 16.58,
+   "end": 16.74
+  },
+  {
+   "w": "feeling",
+   "start": 16.74,
+   "end": 16.98
+  },
+  {
+   "w": "down.",
+   "start": 16.98,
+   "end": 17.4
+  },
+  {
+   "w": "A",
+   "start": 18.0,
+   "end": 18.1
+  },
+  {
+   "w": "tickle",
+   "start": 18.1,
+   "end": 18.48
+  },
+  {
+   "w": "only",
+   "start": 18.48,
+   "end": 18.86
+  },
+  {
+   "w": "works",
+   "start": 18.86,
+   "end": 19.26
+  },
+  {
+   "w": "as",
+   "start": 19.26,
+   "end": 19.44
+  },
+  {
+   "w": "a",
+   "start": 19.44,
+   "end": 19.54
+  },
+  {
+   "w": "surprise.",
+   "start": 19.54,
+   "end": 19.92
+  },
+  {
+   "w": "So",
+   "start": 20.46,
+   "end": 20.74
+  },
+  {
+   "w": "if",
+   "start": 20.74,
+   "end": 20.94
+  },
+  {
+   "w": "your",
+   "start": 20.94,
+   "end": 21.08
+  },
+  {
+   "w": "friend",
+   "start": 21.08,
+   "end": 21.36
+  },
+  {
+   "w": "gets",
+   "start": 21.36,
+   "end": 21.6
+  },
+  {
+   "w": "you",
+   "start": 21.6,
+   "end": 21.78
+  },
+  {
+   "w": "every",
+   "start": 21.78,
+   "end": 22.16
+  },
+  {
+   "w": "single",
+   "start": 22.16,
+   "end": 22.5
+  },
+  {
+   "w": "time,",
+   "start": 22.5,
+   "end": 22.94
+  },
+  {
+   "w": "don't",
+   "start": 23.32,
+   "end": 23.5
+  },
+  {
+   "w": "blame",
+   "start": 23.5,
+   "end": 23.7
+  },
+  {
+   "w": "them.",
+   "start": 23.7,
+   "end": 24.0
+  },
+  {
+   "w": "Blame",
+   "start": 24.42,
+   "end": 24.66
+  },
+  {
+   "w": "your",
+   "start": 24.66,
+   "end": 24.78
+  },
+  {
+   "w": "brain",
+   "start": 24.78,
+   "end": 25.2
+  },
+  {
+   "w": "for",
+   "start": 25.2,
+   "end": 25.4
+  },
+  {
+   "w": "not",
+   "start": 25.4,
+   "end": 25.52
+  },
+  {
+   "w": "seeing",
+   "start": 25.52,
+   "end": 25.76
+  },
+  {
+   "w": "it",
+   "start": 25.76,
+   "end": 25.9
+  },
+  {
+   "w": "coming.",
+   "start": 25.9,
+   "end": 26.16
+  }
+ ]
+}

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Placeholder Wake mark: a sun rising over a horizon line. Swap for the real logo later. -->
+  <rect width="64" height="64" rx="14" fill="#0F1630"/>
+  <path d="M14 40a18 18 0 0 1 36 0z" fill="#FFC857"/>
+  <rect x="10" y="42" width="44" height="4" rx="2" fill="#EEF1FA"/>
+</svg>

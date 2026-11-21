@@ -5,7 +5,7 @@ import { tierFor } from '../data/videos'
 
 const TOPICS = ['History', 'Space', 'The brain', 'Biology', 'Psychology', 'Maths', 'Art', 'Climate', 'Philosophy']
 
-// Sign-up in four short steps: age (which decides the feed tier), age check, role, interests.
+// Sign-up in short steps: age (which decides the feed tier), age check, role (18+ only), interests.
 // The last button is a real tap, which is what lets the phone play sound from then on.
 export default function Onboarding({ onDone }) {
   const [step, setStep] = useState(0)
@@ -17,21 +17,24 @@ export default function Onboarding({ onDone }) {
   const needsAdult = age < 15
   const needsEuApp = age >= 18
 
+  // Under 18 you join as a learner (creators are verified adults), so the "what brings you here"
+  // step is skipped and you go straight to picking topics.
+  const steps = age < 18 ? [1, 2, 4] : [1, 2, 3, 4]
+  const next = () => setStep(age < 18 ? 4 : 3)
   const runCheck = () => { setCheck('working'); setTimeout(() => setCheck('done'), 1600) }
-  const finish = () => onDone({ age, tier: needsEuApp && check !== 'done' ? tierFor(17) : tier, verified18: check === 'done' && needsEuApp, role, topics })
+  const finish = () => onDone({ age, tier: needsEuApp && check !== 'done' ? tierFor(17) : tier, verified18: check === 'done' && needsEuApp, role: age < 18 ? 'learner' : role, topics })
 
   if (step === 0) return (
-    <div className="screen" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'radial-gradient(90% 55% at 50% 100%, #4a3a12, var(--night) 70%)' }}>
-      <Logo size={56} />
-      <h1 style={{ fontSize: 44, marginTop: 28 }}>The scroll that leaves you smarter.</h1>
-      <p className="lead">Short videos made from real research and real books, by the people who wrote them.</p>
+    <div className="screen welcome">
+      <Logo size={84} />
+      <p className="slogan">Wake up to knowledge.</p>
       <div className="bottom-cta"><button className="btn" onClick={() => setStep(1)}>Get started</button></div>
     </div>
   )
 
   return (
     <div className="screen">
-      <div className="step-dots">{[1, 2, 3, 4].map((s) => <i key={s} className={s <= step ? 'on' : ''} />)}</div>
+      <div className="step-dots">{steps.map((s) => <i key={s} className={s <= step ? 'on' : ''} />)}</div>
 
       {step === 1 && <>
         <h1>How old are you?</h1>
@@ -56,9 +59,9 @@ export default function Onboarding({ onDone }) {
               <div style={{ fontSize: 13, color: 'var(--haze)' }}>Nothing is stored except the yes.</div></div>
           </div>
           <div className="bottom-cta">
-            {check === 'done' ? <button className="btn" onClick={() => setStep(3)}>Continue</button> : <>
+            {check === 'done' ? <button className="btn" onClick={() => next()}>Continue</button> : <>
               <button className="btn" onClick={runCheck} disabled={check === 'working'}>Open EU age app</button>
-              <button className="btn ghost" onClick={() => { setCheck('skipped'); setStep(3) }}>Not now (use the under-18 feed)</button></>}
+              <button className="btn ghost" onClick={() => { setCheck('skipped'); next() }}>Not now (use the under-18 feed)</button></>}
           </div>
         </> : needsAdult ? <>
           <h1>Ask a parent to join you</h1>
@@ -67,13 +70,13 @@ export default function Onboarding({ onDone }) {
             {check === 'done' ? <CheckCircle2 size={40} color="var(--ok)" /> : <Users size={40} color="var(--sun)" />}
             <div>{check === 'done' ? <b className="check">Parent approved</b> : 'We send your parent a link to approve.'}</div>
           </div>
-          <div className="bottom-cta">{check === 'done' ? <button className="btn" onClick={() => setStep(3)}>Continue</button>
+          <div className="bottom-cta">{check === 'done' ? <button className="btn" onClick={() => next()}>Continue</button>
             : <button className="btn" onClick={runCheck} disabled={check === 'working'}>{check === 'working' ? 'Waiting for parent…' : 'Send to my parent'}</button>}</div>
         </> : <>
           <h1>Your teen account</h1>
           <p className="lead">Private by default. No messages from strangers. No targeted ads. Break reminders are on.</p>
           <div className="panel"><b className="check"><CheckCircle2 />Teen protections on</b></div>
-          <div className="bottom-cta"><button className="btn" onClick={() => setStep(3)}>Continue</button></div>
+          <div className="bottom-cta"><button className="btn" onClick={() => next()}>Continue</button></div>
         </>}
       </>}
 

@@ -1,0 +1,39 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Atkinson+Hyperlegible:wght@700&display=block" rel="stylesheet">
+<style>
+  /* 1.4 s channel sting for "Ms. Ada's Class", the Wake Studio cartoon channel. A chalkboard-green
+     disc pops open on sunny yellow, the title bounces in, a chalk underline draws itself. */
+  html,body{margin:0;width:720px;height:1280px;overflow:hidden;background:#ffd84d;font-family:'Lilita One',sans-serif}
+  #disc{position:absolute;left:50%;top:50%;width:620px;height:620px;margin:-310px 0 0 -310px;border-radius:50%;background:#2f6b4f;box-shadow:0 0 0 18px #fff8,0 30px 80px #0004}
+  #title{position:absolute;left:0;right:0;top:520px;text-align:center;color:#fff;font-size:96px;line-height:1;letter-spacing:.01em;text-shadow:0 6px 0 #1d4433}
+  #sub{position:absolute;left:0;right:0;top:668px;text-align:center;color:#ffe9a8;font-family:'Atkinson Hyperlegible';font-weight:700;font-size:30px;letter-spacing:.04em}
+  svg{position:absolute;left:170px;top:630px}
+  .z{position:absolute;font-size:64px;color:#fff}
+</style></head><body>
+<div id="disc"></div>
+<div id="title">Ms. Ada’s Class</div>
+<svg width="380" height="30"><path id="line" d="M6 18 Q 190 4 374 16" stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round" stroke-dasharray="380" stroke-dashoffset="380"/></svg>
+<div id="sub">a Wake Studio channel</div>
+<div class="z" id="z1" style="left:150px;top:380px;color:#f2a6d6">✏</div>
+<div class="z" id="z2" style="left:520px;top:390px;color:#7fd0ff">★</div>
+<script src="common.js"></script>
+<script>
+window.WORDS = { words: [], duration: 1.4 };
+const $ = (id) => document.getElementById(id);
+function draw(t) {
+  // Disc pops open with a little overshoot, then everything bounces in on top of it.
+  const pop = (start, dur) => { const k = prog(t, start, dur); return k < 1 ? ease(k) * (1 + 0.18 * Math.sin(k * Math.PI)) : 1 };
+  $("disc").style.transform = `scale(${pop(0, 0.35)})`;
+  $("title").style.transform = `scale(${pop(0.15, 0.4)}) rotate(${(1 - ease(prog(t, 0.15, 0.4))) * -6}deg)`;
+  $("title").style.opacity = ease(prog(t, 0.15, 0.15));
+  $("line").setAttribute("stroke-dashoffset", 380 * (1 - easeIO(prog(t, 0.45, 0.35))));
+  $("sub").style.opacity = ease(prog(t, 0.6, 0.25));
+  $("z1").style.transform = `scale(${pop(0.35, 0.3)}) rotate(${Math.sin(t * 6) * 10}deg)`;
+  $("z2").style.transform = `scale(${pop(0.45, 0.3)}) rotate(${Math.sin(t * 6 + 1) * 10}deg)`;
+  // Quick zoom-through into the cartoon at the end.
+  const out = easeIO(prog(t, 1.15, 0.25));
+  document.body.style.transform = `scale(${1 + out * 0.6})`;
+  document.body.style.opacity = 1 - out;
+}
+</script></body></html>

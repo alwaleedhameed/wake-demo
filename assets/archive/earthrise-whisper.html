@@ -1,0 +1,54 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400&family=Jost:wght@400&display=block" rel="stylesheet">
+<style>
+  html,body{margin:0;width:720px;height:1280px;overflow:hidden;background:#000}
+  #photo{position:absolute;left:50%;top:50%;width:1400px;height:1400px;margin:-700px 0 0 -700px;transform-origin:784px 721px}
+  #photo img{width:100%;height:100%;object-fit:cover}
+  canvas{position:absolute;inset:0}
+  .t{position:absolute;left:96px;right:96px;color:#f2efe6;opacity:0;font-family:'Cormorant Garamond',serif}
+  .date{font-family:Jost,sans-serif;font-size:28px;letter-spacing:6px;color:#c9c3b3}
+  .h{font-size:80px;font-weight:500;line-height:1}
+  .q{font-style:italic;font-size:56px;line-height:1.15}
+  #bars:before,#bars:after{content:"";position:absolute;left:0;right:0;height:120px;background:#000}
+  #bars:before{top:0}#bars:after{bottom:0}
+</style></head><body>
+<div id="photo"><img src="earthrise.jpg"></div>
+<canvas id="c" width="720" height="1280"></canvas>
+<div id="bars"></div>
+<div class="t date" id="date" style="top:170px">24 DECEMBER 1968 · APOLLO 8</div>
+<div class="t h" id="rise" style="top:220px">Earthrise</div>
+<div class="t q" id="b1" style="top:200px">The borders disappear.</div>
+<div class="t q" id="b2" style="top:200px">Small. Fragile. Whole.</div>
+<div class="t h" id="ov" style="top:190px">The overview effect</div>
+<div class="t q" id="home" style="top:210px">It changes how they see their lives, back home.</div>
+<script src="../words/earthrise.js"></script>
+<script src="common.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const ctx = $("c").getContext("2d");
+const T = { rise: at("Earth"), ast: at("Astronauts"), bord: at("borders"), planet: at("planet"), psy: at("Psychologists"),
+            ov: at("overview"), awe: at("awe"), end: WORDS.duration };
+
+function draw(t) {
+  // One long, slow pull-back: start close on the Earth, end on the lunar horizon it rises over.
+  const k = easeIO(t / T.end);
+  $("photo").style.transform = `scale(${lerp(2.6, 1.05, k)})`;
+  $("photo").style.opacity = ease(prog(t, 0, 2.5));
+  // Film grain and a soft vignette, so it reads as archival rather than a stock image.
+  ctx.clearRect(0, 0, 720, 1280);
+  const v = ctx.createRadialGradient(360, 640, 250, 360, 640, 820);
+  v.addColorStop(0, "#0000"); v.addColorStop(1, "#000d"); ctx.fillStyle = v; ctx.fillRect(0, 0, 720, 1280);
+  const f = Math.floor(t * 24);
+  for (let i = 0; i < 500; i++) {
+    ctx.fillStyle = rand(i + f * 977) > .5 ? "#ffffff14" : "#00000020";
+    ctx.fillRect(rand(i * 3 + f) * 720, rand(i * 7 + f) * 1280, 2, 2);
+  }
+  show($("date"), t, 0.4, T.rise + 1.5, { dy: 10 });
+  show($("rise"), t, T.rise, T.ast - 0.2, { dy: 20, inDur: 0.9 });
+  show($("b1"), t, T.bord, T.planet - 0.2, { dy: 20, inDur: 0.7 });
+  show($("b2"), t, T.planet, T.psy - 0.2, { dy: 20, inDur: 0.7 });
+  show($("ov"), t, T.ov - 0.2, T.awe - 0.2, { dy: 20, inDur: 0.9 });
+  show($("home"), t, T.awe, T.end + 1, { dy: 20, inDur: 0.9 });
+}
+</script></body></html>

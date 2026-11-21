@@ -27,9 +27,10 @@ cp out/<name>.mp4 out/<name>.jpg ../app/public/videos/
 ```
 Needs the reels toolkit at `~/programming/reels` (puppeteer and Chrome) and ffmpeg.
 
-## Swap in the real logo
-Replace the SVG in `app/src/components/Logo.jsx`, `app/public/icon.svg` and regenerate `app/public/icon-180.png`:
-`convert -background none -density 400 app/public/icon.svg -resize 180x180 app/public/icon-180.png`
+## The logo
+The team logo is a vector redraw at `app/public/wake-logo.svg` (copy in `promo/wake-logo.svg`); `Logo.jsx` shows it as an image.
+The home screen icon is `app/public/icon.svg`. Regenerate `icon-180.png` with headless Chrome, not ImageMagick (it draws this SVG blank):
+`google-chrome --headless --no-sandbox --hide-scrollbars --window-size=180,180 --screenshot=$PWD/app/public/icon-180.png file://$PWD/app/public/icon.svg`
 
 ## Common problems
 | Symptom | Fix |
@@ -37,4 +38,5 @@ Replace the SVG in `app/src/components/Logo.jsx`, `app/public/icon.svg` and rege
 | Blank page on GitHub Pages | `base` in `app/vite.config.js` must be `/wake-demo/` (the repo name) |
 | No sound on iPhone | Tap "Tap for sound" once. Check the ring/silent switch is not on silent |
 | Videos slow on venue Wi-Fi | Open the app once before presenting so the videos are cached, or use mobile data |
+| Laptop page blank, JS 404 | An old `vite preview` is still running with stale files: `pkill -f "vite preview"` and start again |
 | Site not updating | Repo Settings, Pages, Source must be the `gh-pages` branch. Check `gh api repos/alwaleedhameed/wake-demo/pages/builds/latest` |

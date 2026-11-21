@@ -8,3 +8,5 @@ promo/promo-graphics.mp4
 promo/wake-promo.mp4
 promo/clips/
 promo/stills/
+# Raw AI-generated clips (large; the finished feed videos in app/public/videos are committed)
+feed-videos/ai/

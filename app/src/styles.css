@@ -18,10 +18,35 @@
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html, body, #root { margin: 0; height: 100%; background: #070a17; color: var(--mist); font-family: var(--read); overscroll-behavior: none; }
+html, body, #root { margin: 0; height: var(--app-h, 100%); background: #0f1630; color: var(--mist); font-family: var(--read); overscroll-behavior: none; }
 button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
 button:focus-visible, input:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+/* Light theme for everything that is not a video: sky blue into white with a faint red at the
+   bottom. It works by redefining the same tokens, so every screen, sheet and card that uses
+   var(--night) and friends switches over without its own rules. The video feed stays dark. */
+.screen, .sheet, .pause-card, .nav.light {
+  --night: #f6faff;
+  --night-2: #ffffff;
+  --night-3: #e2effb;
+  --mist: #10233f;
+  --haze: #5b6f88;
+  --sun: #1c7ad8;
+  --sun-ink: #ffffff;
+  --ok: #0f9a63;
+  --heart: #e0384f;
+  color: var(--mist);
+}
+.screen { background: linear-gradient(180deg, #74baf1 0, #cfe7fd calc(var(--safe-top) + 130px), #f6faff 52%, #fff0ec 100%) !important; }
+.screen .panel, .screen .option, .screen .series-card, .screen .chip, .pause-card .answer, .sheet .citation {
+  box-shadow: 0 1px 0 #10233f0f, 0 6px 18px #1d5fa012; }
+.sheet .citation { background: var(--night); }
+.sheet .grab { background: #10233f26; }
+.sheet .row, .screen .row { border-top-color: #10233f14; }
+.nav.light { background: linear-gradient(#ffffff00, #fffffff2 35%); }
+.nav.light button { color: #10233f80; }
+.nav.light button.on { color: var(--mist); }
 
 /* The phone. Full screen on a phone; a centred phone-sized frame on a laptop or projector. */
 .phone { position: relative; height: 100%; width: 100%; overflow: hidden; background: var(--night); }
@@ -33,7 +58,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--sun); outli
 /* ---------- Feed ---------- */
 .feed { position: absolute; inset: 0; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; }
 .feed::-webkit-scrollbar { display: none; }
-.card { position: relative; height: 100%; scroll-snap-align: start; scroll-snap-stop: always; overflow: hidden; background: #000; }
+.card { position: relative; height: 100%; scroll-snap-align: start; overflow: hidden; background: #000; }
 .card .poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .shared-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; z-index: 1; transition: opacity .15s; }
 .card-ui { position: absolute; inset: 0; z-index: 2; }
@@ -136,11 +161,12 @@ textarea, input[type=text] { width: 100%; background: var(--night); color: var(-
 .nav { position: absolute; z-index: 10; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(4, 1fr); padding: 8px 6px calc(var(--safe-bottom) + 8px); background: linear-gradient(#0f163000, #0f1630f0 35%); }
 .nav button { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; font-weight: 700; color: #ffffff90; padding-top: 6px; }
 .nav button.on { color: #fff; }
-.nav .make { color: var(--sun-ink); }
+.nav .make { color: #2a1d00; }
+.nav.light .make { color: #fff; }
 .nav .make span.ic { background: var(--sun); border-radius: 12px; width: 46px; height: 32px; display: grid; place-items: center; }
 
 /* Break / quiz card in the feed */
-.pause-card { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 30px 24px; background: radial-gradient(90% 60% at 50% 0%, #3a3270, var(--night)); }
+.pause-card { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 30px 24px; background: linear-gradient(180deg, #74baf1 0, #d7ecfe 30%, #f6faff 60%, #fff0ec 100%); }
 .pause-card h2 { font-family: var(--display); font-weight: 800; font-size: 34px; line-height: 1.05; margin: 10px 0; letter-spacing: -.02em; }
 .pause-card p { color: var(--haze); line-height: 1.45; }
 .answer { display: block; width: 100%; text-align: left; padding: 15px 16px; border-radius: 14px; background: var(--night-2); margin-bottom: 8px; font-weight: 700; border: 2px solid transparent; }
@@ -165,3 +191,108 @@ textarea, input[type=text] { width: 100%; background: var(--night); color: var(-
 .status div.now { color: var(--sun); font-weight: 700; }
 .status i { width: 22px; height: 22px; border-radius: 50%; border: 2px solid currentColor; display: grid; place-items: center; flex: none; }
 .toast { position: absolute; z-index: 30; left: 50%; top: calc(var(--safe-top) + 60px); transform: translateX(-50%); background: var(--mist); color: var(--night); font-weight: 700; padding: 10px 16px; border-radius: 999px; animation: fade .2s; white-space: nowrap; }
+
+/* Welcome screen: the logo alone in the middle, the slogan quiet underneath, a slow drifting sky. */
+.welcome { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  background: linear-gradient(170deg, #6db6f0, #cfe7fd 30%, #fbfdff 55%, #ffe9e4 85%, #dff0ff) !important; background-size: 100% 220% !important; animation: drift 14s ease-in-out infinite alternate; }
+.welcome .slogan { font-family: var(--display); font-weight: 500; font-size: 18px; letter-spacing: .01em; color: var(--haze); margin: 18px 0 0; }
+.welcome .logo { animation: float 5s ease-in-out infinite; }
+@keyframes drift { from { background-position: 0 0; } to { background-position: 0 100%; } }
+@keyframes float { 50% { transform: translateY(-6px) rotate(-1deg); } }
+
+/* Established creators' Shorts: YouTube's player at full width over a blurred still, so the
+   creator's own on-screen text is never cut off. Wake's own layer on top takes all touches. */
+.yt-poster { filter: blur(18px) brightness(.5); transform: scale(1.2); }
+/* Wake's cover over the player: same size and place as the video, removed once it truly plays. */
+.yt-cover { position: absolute; left: 0; top: 50%; width: 100%; aspect-ratio: 9 / 16; transform: translateY(-50%); object-fit: cover; z-index: 1; transition: opacity .25s; pointer-events: none; }
+.yt-cover.off { opacity: 0; }
+.yt-wait { position: absolute; left: 50%; top: 45%; width: 34px; height: 34px; margin: -17px; border-radius: 50%; border: 3px solid #ffffff40; border-top-color: #fff; animation: spin .8s linear infinite; pointer-events: none; }
+.yt-frame { position: absolute; left: 0; top: 50%; width: 100%; height: auto; aspect-ratio: 9 / 16; transform: translateY(-50%); border: 0; z-index: 1; pointer-events: none; }
+
+/* In Read and Quiz the text underneath needs the touches; only the buttons stay on top. */
+.card-ui.passive { pointer-events: none; }
+.card-ui.passive .rail, .card-ui.passive .info { pointer-events: auto; }
+.quiz h2 { margin-bottom: 16px; }
+.read.quiz { z-index: 2; }
+
+/* ---------- Liquid glass ----------
+   Apple's liquid glass look: frosted, see-through material with a bright rim of light on the top
+   edge and a soft shadow underneath. backdrop-filter blurs and saturates whatever is behind it
+   (a video or the sky gradient), which is what makes it read as glass rather than a flat colour. */
+.glass, .nav, .glass-tabs, .pill, .tap-sound, .toast, .sheet, .btn.ghost,
+.screen .panel, .screen .option, .screen .series-card, .screen .chip {
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  backdrop-filter: blur(22px) saturate(180%);
+}
+/* Glass over video (dark): mostly clear, white rim. */
+.nav, .pill, .tap-sound {
+  background: linear-gradient(160deg, #ffffff30, #ffffff0d) !important;
+  border: 1px solid #ffffff40;
+  box-shadow: inset 0 1px 1px #ffffffa0, inset 0 -1px 1px #ffffff20, 0 10px 30px #0006;
+}
+.toast { background: linear-gradient(160deg, #ffffffd0, #ffffff99); border: 1px solid #ffffffb0; box-shadow: inset 0 1px 1px #fff, 0 10px 30px #10233f33; }
+/* The tab bar floats as a glass capsule above the content, like iOS. */
+.nav { left: 12px; right: 12px; bottom: calc(var(--safe-bottom) + 8px); border-radius: 30px; padding: 6px 4px 7px; }
+.nav button { color: #ffffffb0; }
+/* Glass over the light sky screens: whiter, with an ink-blue shadow. */
+.nav.light, .screen .panel, .screen .option, .screen .series-card, .screen .chip, .btn.ghost, .sheet {
+  background: linear-gradient(160deg, #ffffffcc, #ffffff80) !important;
+  border: 1px solid #ffffffd0;
+  box-shadow: inset 0 1px 1px #ffffff, inset 0 -1px 1px #ffffff60, 0 8px 26px #1d5fa01c !important;
+}
+.screen .option.on, .screen .chip.on { border-color: var(--sun); }
+.sheet { background: linear-gradient(160deg, #ffffffe6, #ffffffb8) !important; border-bottom: 0; }
+.btn.ghost { color: var(--mist); }
+.screen { padding-bottom: calc(var(--safe-bottom) + 110px); }
+.info { bottom: calc(var(--safe-bottom) + 88px); }
+.rail { bottom: calc(var(--safe-bottom) + 160px); }
+
+/* Two-way glass switch at the top of Series. */
+.glass-tabs { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; padding: 4px; border-radius: 999px; margin: 6px 0 18px;
+  background: linear-gradient(160deg, #ffffff70, #ffffff30); border: 1px solid #ffffffc0; box-shadow: inset 0 1px 1px #fff, inset 0 -1px 2px #1d5fa014, 0 8px 24px #1d5fa018; }
+.glass-tabs button { position: relative; z-index: 1; padding: 11px 8px; font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--haze); transition: color .25s; }
+.glass-tabs button.on { color: var(--mist); }
+.glass-thumb { position: absolute; top: 4px; bottom: 4px; left: 4px; border-radius: 999px; transition: transform .35s cubic-bezier(.3,1.4,.5,1);
+  background: linear-gradient(160deg, #ffffff, #ffffffb0); box-shadow: inset 0 1px 1px #fff, inset 0 -2px 4px #1d5fa012, 0 4px 14px #1d5fa030; }
+.empty { text-align: center; padding: 26px 18px !important; }
+.empty b { font-family: var(--display); font-size: 18px; }
+.empty p { color: var(--haze); line-height: 1.5; margin: 6px 0 0; }
+.toast { top: auto; bottom: calc(var(--safe-bottom) + 92px); }
+
+/* Over the light quiz and end cards the top bar switches to dark text. */
+.topbar.on-light .tabs button { color: #10233f80; }
+.topbar.on-light .tabs button.on { color: var(--mist, #10233f); color: #10233f; }
+.topbar.on-light .pill { color: #10233f; background: linear-gradient(160deg, #ffffffcc, #ffffff80) !important; border-color: #ffffffd0; box-shadow: inset 0 1px 1px #fff, 0 8px 26px #1d5fa01c; }
+/* Feed cards only scroll the feed up and down; no blur inside them (it can stall scrolling on iPhone). */
+/* No scroll-snap-stop and no touch-action rules on cards: on iPhone they can block swiping back up. */
+.pause-card { overflow: hidden; }
+.pause-card .answer { -webkit-backdrop-filter: none; backdrop-filter: none; background: #ffffffd9; }
+
+/* Small, quiet "muted" badge instead of a big button: the video plays anyway, any tap unmutes. */
+.muted-badge { position: absolute; z-index: 6; left: 14px; top: calc(var(--safe-top) + 58px); width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; pointer-events: none;
+  background: linear-gradient(160deg, #ffffff30, #ffffff0d); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); border: 1px solid #ffffff40; box-shadow: inset 0 1px 1px #ffffffa0; }
+.card-ui .muted-badge { z-index: 3; }
+.link-btn { margin-top: 18px; font-size: 14px; color: var(--haze); text-decoration: underline; }
+
+/* Quick question: a dark glass panel over the start of a video. It lives inside the card, so a
+   swipe anywhere still moves the feed. */
+.qpanel { position: absolute; z-index: 4; left: 14px; right: 80px; top: calc(var(--safe-top) + 120px); padding: 16px; border-radius: 22px; color: #fff;
+  background: linear-gradient(160deg, #0f1630cc, #0f163099); border: 1px solid #ffffff38; box-shadow: inset 0 1px 1px #ffffff60, 0 18px 40px #0008;
+  animation: up .3s cubic-bezier(.2,.8,.2,1); }
+.qhead { display: flex; gap: 6px; align-items: center; font-family: var(--display); font-weight: 800; font-size: 14px; color: var(--sun); margin-bottom: 6px; }
+.qtext { font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 1.2; margin: 0 0 4px; }
+.qfrom { font-size: 12px; color: #ffffffa0; margin-bottom: 12px; }
+.qpanel .answer { background: #ffffff18; color: #fff; padding: 12px 14px; }
+.qpanel .answer.right { border-color: var(--ok); color: var(--ok); }
+.qpanel .answer.wrong { border-color: var(--heart); color: var(--heart); }
+.qfoot { margin-top: 4px; font-size: 14px; color: #ffffffd0; min-height: 22px; }
+.qfoot .link-btn { margin: 0; color: #ffffffb0; }
+/* The end of the day stays dark like the videos, so nothing switches colour mid-swipe. */
+.end-card { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 30px 26px;
+  background: radial-gradient(90% 60% at 50% 30%, #253a7a, #0f1630 70%); color: #fff; }
+.end-card h2 { font-family: var(--display); font-weight: 800; font-size: 36px; margin: 14px 0 8px; letter-spacing: -.02em; }
+.end-card p { color: #ffffffb0; line-height: 1.45; margin: 0 0 10px; }
+.end-card .big { color: #fff; font-weight: 700; font-size: 19px; }
+.end-card .link-btn { color: #ffffff90; }
+
+.end-card .btn { max-width: 280px; }
