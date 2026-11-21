@@ -6,7 +6,7 @@ The demo has no backend: every screen and video works from static files.
 ## Open it on a phone (the main way to demo)
 - Live link: https://alwaleedhameed.github.io/wake-demo/
 - On the iPhone: open the link in Safari, tap Share, then "Add to Home Screen". It then opens full screen like a real app.
-- Every push to `main` redeploys automatically (GitHub Actions, about 1 minute). Check progress with `gh run list -R alwaleedhameed/wake-demo`.
+- To publish changes: `./deploy.sh` from the project root. It builds the app and pushes it to the `gh-pages` branch; the site updates about a minute later.
 
 ## Run it on the laptop
 ```bash
@@ -37,4 +37,4 @@ Replace the SVG in `app/src/components/Logo.jsx`, `app/public/icon.svg` and rege
 | Blank page on GitHub Pages | `base` in `app/vite.config.js` must be `/wake-demo/` (the repo name) |
 | No sound on iPhone | Tap "Tap for sound" once. Check the ring/silent switch is not on silent |
 | Videos slow on venue Wi-Fi | Open the app once before presenting so the videos are cached, or use mobile data |
-| Pages deploy fails | Repo Settings, Pages, Source must be "GitHub Actions" |
+| Site not updating | Repo Settings, Pages, Source must be the `gh-pages` branch. Check `gh api repos/alwaleedhameed/wake-demo/pages/builds/latest` |
