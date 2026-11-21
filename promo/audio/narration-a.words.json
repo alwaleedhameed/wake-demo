@@ -1,0 +1,326 @@
+{
+ "duration": 29.36,
+ "language": "en",
+ "words": [
+  {
+   "w": "Here",
+   "start": 0.0,
+   "end": 0.36
+  },
+  {
+   "w": "we",
+   "start": 0.36,
+   "end": 0.58
+  },
+  {
+   "w": "observe",
+   "start": 0.58,
+   "end": 1.1
+  },
+  {
+   "w": "the",
+   "start": 1.1,
+   "end": 1.76
+  },
+  {
+   "w": "modern",
+   "start": 1.76,
+   "end": 2.08
+  },
+  {
+   "w": "classroom.",
+   "start": 2.08,
+   "end": 2.72
+  },
+  {
+   "w": "It's",
+   "start": 3.36,
+   "end": 3.56
+  },
+  {
+   "w": "students",
+   "start": 3.56,
+   "end": 3.94
+  },
+  {
+   "w": "deeply",
+   "start": 3.94,
+   "end": 4.62
+  },
+  {
+   "w": "engaged",
+   "start": 4.62,
+   "end": 5.24
+  },
+  {
+   "w": "with",
+   "start": 5.24,
+   "end": 5.92
+  },
+  {
+   "w": "something",
+   "start": 5.92,
+   "end": 6.24
+  },
+  {
+   "w": "else",
+   "start": 6.24,
+   "end": 6.56
+  },
+  {
+   "w": "entirely.",
+   "start": 6.56,
+   "end": 7.14
+  },
+  {
+   "w": "But",
+   "start": 7.76,
+   "end": 7.86
+  },
+  {
+   "w": "then",
+   "start": 7.86,
+   "end": 8.16
+  },
+  {
+   "w": "a",
+   "start": 8.16,
+   "end": 8.58
+  },
+  {
+   "w": "rare",
+   "start": 8.58,
+   "end": 8.9
+  },
+  {
+   "w": "event,",
+   "start": 8.9,
+   "end": 9.32
+  },
+  {
+   "w": "an",
+   "start": 9.84,
+   "end": 10.02
+  },
+  {
+   "w": "idea,",
+   "start": 10.02,
+   "end": 10.46
+  },
+  {
+   "w": "and",
+   "start": 10.92,
+   "end": 11.16
+  },
+  {
+   "w": "our",
+   "start": 11.16,
+   "end": 11.32
+  },
+  {
+   "w": "teacher",
+   "start": 11.32,
+   "end": 11.62
+  },
+  {
+   "w": "does",
+   "start": 11.62,
+   "end": 11.88
+  },
+  {
+   "w": "what",
+   "start": 11.88,
+   "end": 12.12
+  },
+  {
+   "w": "any",
+   "start": 12.12,
+   "end": 12.46
+  },
+  {
+   "w": "scientist",
+   "start": 12.46,
+   "end": 12.88
+  },
+  {
+   "w": "would.",
+   "start": 12.88,
+   "end": 13.26
+  },
+  {
+   "w": "He",
+   "start": 13.62,
+   "end": 13.76
+  },
+  {
+   "w": "runs.",
+   "start": 13.76,
+   "end": 14.1
+  },
+  {
+   "w": "One",
+   "start": 14.62,
+   "end": 14.86
+  },
+  {
+   "w": "upload,",
+   "start": 14.86,
+   "end": 15.24
+  },
+  {
+   "w": "built",
+   "start": 15.58,
+   "end": 15.78
+  },
+  {
+   "w": "on",
+   "start": 15.78,
+   "end": 15.98
+  },
+  {
+   "w": "real",
+   "start": 15.98,
+   "end": 16.24
+  },
+  {
+   "w": "research,",
+   "start": 16.24,
+   "end": 16.82
+  },
+  {
+   "w": "checked,",
+   "start": 17.08,
+   "end": 17.3
+  },
+  {
+   "w": "credited.",
+   "start": 17.6,
+   "end": 17.94
+  },
+  {
+   "w": "He",
+   "start": 18.52,
+   "end": 18.62
+  },
+  {
+   "w": "returns",
+   "start": 18.62,
+   "end": 18.98
+  },
+  {
+   "w": "to",
+   "start": 18.98,
+   "end": 19.24
+  },
+  {
+   "w": "find",
+   "start": 19.24,
+   "end": 19.52
+  },
+  {
+   "w": "nothing",
+   "start": 19.52,
+   "end": 20.22
+  },
+  {
+   "w": "has",
+   "start": 20.22,
+   "end": 20.48
+  },
+  {
+   "w": "changed.",
+   "start": 20.48,
+   "end": 20.92
+  },
+  {
+   "w": "Ah,",
+   "start": 21.56,
+   "end": 21.82
+  },
+  {
+   "w": "look",
+   "start": 22.22,
+   "end": 22.42
+  },
+  {
+   "w": "closer.",
+   "start": 22.42,
+   "end": 22.92
+  },
+  {
+   "w": "The",
+   "start": 23.32,
+   "end": 23.44
+  },
+  {
+   "w": "scroll",
+   "start": 23.44,
+   "end": 23.8
+  },
+  {
+   "w": "is",
+   "start": 23.8,
+   "end": 24.04
+  },
+  {
+   "w": "the",
+   "start": 24.04,
+   "end": 24.18
+  },
+  {
+   "w": "same.",
+   "start": 24.18,
+   "end": 24.52
+  },
+  {
+   "w": "What",
+   "start": 24.88,
+   "end": 24.98
+  },
+  {
+   "w": "they",
+   "start": 24.98,
+   "end": 25.16
+  },
+  {
+   "w": "learn",
+   "start": 25.16,
+   "end": 25.54
+  },
+  {
+   "w": "is",
+   "start": 25.54,
+   "end": 25.96
+  },
+  {
+   "w": "not.",
+   "start": 25.96,
+   "end": 26.22
+  },
+  {
+   "w": "Wake,",
+   "start": 26.94,
+   "end": 27.16
+  },
+  {
+   "w": "wake",
+   "start": 27.66,
+   "end": 27.98
+  },
+  {
+   "w": "up",
+   "start": 27.98,
+   "end": 28.26
+  },
+  {
+   "w": "to",
+   "start": 28.26,
+   "end": 28.48
+  },
+  {
+   "w": "knowledge.",
+   "start": 28.48,
+   "end": 28.86
+  }
+ ]
+}

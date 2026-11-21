@@ -7,7 +7,7 @@ export default function Logo({ size = 28, word = true }) {
         <path d="M8 30a16 16 0 0 1 32 0z" fill="var(--sun)" />
         <rect x="2" y="32" width="44" height="4" rx="2" fill="var(--mist)" />
       </svg>
-      {word && <span style={{ lineHeight: 0.8 }}>wake</span>}
+      {word && <span style={{ lineHeight: 0.8, letterSpacing: "0.02em" }}>WAKE</span>}
     </span>
   )
 }

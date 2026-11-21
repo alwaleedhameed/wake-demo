@@ -1,0 +1,198 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Bricolage+Grotesque:opsz,wght@12..96,800&display=block" rel="stylesheet">
+<style>
+  /* Wake promo edit, 1920x1080. Every shot, word and effect is placed on the narration's timeline below.
+     To re-time a shot, change its `in` (where to start inside the clip) in SHOTS. */
+  html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#0f1630;font-family:'Lilita One',sans-serif}
+  video,.slate{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0}
+  .slate{display:grid;place-items:center;text-align:center;color:#fff;font-family:'Bricolage Grotesque';font-size:54px;line-height:1.2;padding:0 200px;box-sizing:border-box}
+  .slate small{display:block;font-size:30px;opacity:.75;margin-top:16px}
+  canvas{position:absolute;inset:0}
+  /* Cartoon words: chunky, colourful, thick white outline, a little tilt. */
+  .w{position:absolute;opacity:0;white-space:nowrap;font-size:120px;line-height:1;-webkit-text-stroke:14px #fff;paint-order:stroke fill;
+     filter:drop-shadow(0 10px 0 #0004);transform-origin:center}
+  /* 3D phone for the outro */
+  #stage{position:absolute;inset:0;perspective:2200px;opacity:0}
+  #phone{position:absolute;left:50%;top:50%;width:440px;height:920px;margin:-460px 0 0 -220px;transform-style:preserve-3d}
+  .face{position:absolute;inset:0;border-radius:70px;backface-visibility:hidden;overflow:hidden}
+  .back{background:radial-gradient(120% 80% at 30% 10%,#3b4254,#1a1e29 60%,#101219);box-shadow:inset 0 0 0 6px #4a5264}
+  .cam{position:absolute;left:34px;top:34px;width:170px;height:170px;border-radius:44px;background:#232835;box-shadow:inset 0 0 0 3px #4a5264}
+  .cam i{position:absolute;width:62px;height:62px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#4b5a78,#05070c 60%);box-shadow:0 0 0 6px #343a49}
+  .front{transform:rotateY(180deg);background:#000;box-shadow:inset 0 0 0 10px #05070f}
+  #strip{position:absolute;left:10px;right:10px;top:10px}
+  #strip img{display:block;width:100%;height:900px;object-fit:cover;border-radius:60px}
+  .backlogo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;justify-items:center;gap:10px}
+  .backlogo span{font-family:'Bricolage Grotesque';font-weight:800;font-size:44px;color:#c9cfdd;letter-spacing:.08em}
+  #end{position:absolute;right:170px;top:340px;opacity:0;text-align:left}
+  #end .logo{display:flex;align-items:flex-end;gap:26px;font-family:'Bricolage Grotesque';font-weight:800;font-size:190px;line-height:.75;color:#eef1fa;letter-spacing:.02em}
+  #end .slogan{font-family:'Bricolage Grotesque';font-weight:800;font-size:70px;color:#ffc857;margin-top:48px}
+</style></head><body>
+<div id="shots"></div>
+<canvas id="c" width="1920" height="1080"></canvas>
+<div id="stage"><div id="phone">
+  <div class="face back"><div class="cam"><i style="left:16px;top:16px"></i><i style="right:16px;top:54px"></i><i style="left:16px;bottom:16px"></i></div>
+    <div class="backlogo"><svg width="150" height="125" viewBox="0 0 48 40"><path d="M8 30a16 16 0 0 1 32 0z" fill="#ffc857"/><rect x="2" y="32" width="44" height="4" rx="2" fill="#c9cfdd"/></svg><span>WAKE</span></div></div>
+  <div class="face front"><div id="strip"><img src="shots/demo1.png"><img src="shots/demo2.png"><img src="shots/demo3.png"></div></div>
+</div></div>
+<div id="end"><div class="logo"><svg width="230" height="190" viewBox="0 0 48 40"><path id="endsun" d="M8 30a16 16 0 0 1 32 0z" fill="#ffc857"/><rect x="2" y="32" width="44" height="4" rx="2" fill="#eef1fa"/></svg>WAKE</div>
+  <div class="slogan">Wake up to knowledge.</div></div>
+<div id="words"></div>
+<script src="../feed-videos/scenes/common.js"></script>
+<script>
+window.WORDS = { words: [], duration: 30 };
+const $ = (id) => document.getElementById(id);
+const ctx = $("c").getContext("2d");
+
+// ---------- The edit: shots on the narration timeline (narration-a, 29.4 s) ----------
+// at = when the shot starts in the promo, dur = how long it shows, in = where to start inside the clip.
+const SHOTS = [
+  { file: "clips/01-teach.mp4",   at: 0.0,  dur: 3.3, in: 0, label: "1 · Teacher at the board, class on phones", line: "Here we observe the modern classroom." },
+  { file: "clips/02-tiktok.mp4",  at: 3.3,  dur: 1.2, in: 0, label: "2a · Phone close-up: TikTok", line: "Its students, deeply engaged…" },
+  { file: "clips/03-shorts.mp4",  at: 4.5,  dur: 1.2, in: 0, label: "2b · Phone close-up: YouTube Shorts", line: "…with something…" },
+  { file: "clips/04-reels.mp4",   at: 5.7,  dur: 1.2, in: 0, label: "2c · Phone close-up: Instagram Reels", line: "…else entirely." },
+  { file: "clips/05-idea.mp4",    at: 6.9,  dur: 4.0, in: 0, label: "3 · Teacher freezes, looks up: idea!", line: "But then, a rare event. An idea," },
+  { file: "clips/06-decide.mp4",  at: 10.9, dur: 2.6, in: 0, label: "4 · Teacher drops the marker, stares at camera", line: "and our teacher does what any scientist would." },
+  { file: "clips/07-sprint.mp4",  at: 13.5, dur: 1.2, in: 0, label: "5 · Teacher sprints out of frame", line: "He runs." },
+  { file: "clips/08-laptop.mp4",  at: 14.7, dur: 3.8, in: 0, label: "6 · Laptop: opens Wake, taps Publish", line: "One upload, built on real research, checked, credited." },
+  { file: "clips/09-return.mp4",  at: 18.5, dur: 3.1, in: 0, label: "7 · Runs back in; class still on phones; confused look", line: "He returns to find… nothing has changed." },
+  { file: "clips/10-reveal.mp4",  at: 21.6, dur: 2.6, in: 0, label: "8 · Students flip phones round, smiling (Wake on screen)", line: "Ah, look closer. The scroll is the same." },
+];
+const SLATE_COLORS = ["#3b4cff", "#ff4d6d", "#7b5cff", "#19c3a0", "#ffb200"];
+
+// ---------- Cartoon words ----------
+// x, y = centre position; c = fill colour; r = tilt in degrees; s = size multiplier.
+const WORDS_FX = [
+  { t: "THE MODERN CLASSROOM", at: 0.5, end: 3.2, x: 960, y: 150, c: "#ffc857", r: -3, s: 0.8 },
+  { t: "TikTok", at: 3.35, end: 4.45, x: 420, y: 180, c: "#ff2bd6", r: -8 },
+  { t: "Shorts", at: 4.55, end: 5.65, x: 1500, y: 180, c: "#ff3d3d", r: 7 },
+  { t: "Reels", at: 5.75, end: 6.85, x: 420, y: 880, c: "#a64dff", r: -6 },
+  { t: "!!!", at: 7.8, end: 9.7, x: 1180, y: 230, c: "#ff4d6d", r: 10, s: 1.2 },
+  { t: "IDEA!", at: 9.8, end: 10.85, x: 1340, y: 300, c: "#ffc857", r: 8, s: 1.3 },
+  { t: "ZOOM!", at: 13.6, end: 14.65, x: 1450, y: 260, c: "#19f0ff", r: -10, s: 1.4 },
+  { t: "UPLOAD", at: 14.9, end: 18.4, x: 420, y: 200, c: "#7dff4d", r: -6 },
+  { t: "✓ CHECKED", at: 17.1, end: 18.4, x: 1420, y: 520, c: "#19c3a0", r: 5, s: 0.85 },
+  { t: "✓ CREDITED", at: 17.6, end: 18.4, x: 1420, y: 680, c: "#ff4d6d", r: -4, s: 0.85 },
+  { t: "...?", at: 19.5, end: 20.5, x: 1450, y: 260, c: "#ffb200", r: 6, s: 1.2 },
+  { t: "HUH?!", at: 20.6, end: 21.55, x: 1450, y: 260, c: "#ff8a00", r: -8, s: 1.3 },
+  { t: "LOOK CLOSER", at: 22.2, end: 23.2, x: 960, y: 150, c: "#19f0ff", r: -4 },
+  { t: "LEARNING!", at: 23.3, end: 24.15, x: 960, y: 150, c: "#7dff4d", r: 4, s: 1.2 },
+];
+// Light bulb over the teacher's head: position it on the footage tomorrow (bx, by).
+const BULB = { at: 9.75, end: 10.85, bx: 960, by: 230 };
+// Sprint effects: speed lines and smoke puffs behind the runner (puffX, puffY = where the feet leave).
+const SPRINT = { at: 13.5, end: 14.7, puffX: 700, puffY: 900, dir: -1 };
+
+// ---------- Build the DOM ----------
+const shotEls = SHOTS.map((s, i) => {
+  const v = document.createElement("video"); v.src = s.file; v.muted = true; v.preload = "auto";
+  const slate = document.createElement("div"); slate.className = "slate";
+  slate.style.background = SLATE_COLORS[i % SLATE_COLORS.length];
+  slate.innerHTML = `${s.label}<small>“${s.line}”</small>`;
+  let ok = false; v.addEventListener("loadeddata", () => { ok = true; }); v.addEventListener("error", () => { ok = false; });
+  $("shots").append(v, slate);
+  return { s, v, slate, ok: () => ok };
+});
+const wordEls = WORDS_FX.map((w) => { const d = document.createElement("div"); d.className = "w"; d.textContent = w.t; d.style.color = w.c; $("words").append(d); return d; });
+
+// Seek a clip to an exact time and wait for the frame, so every rendered frame is the right one.
+function seekVideo(v, time) {
+  return new Promise((res) => {
+    if (Math.abs(v.currentTime - time) < 0.001 && v.readyState >= 2) return res();
+    const done = () => { v.removeEventListener("seeked", done); res(); };
+    v.addEventListener("seeked", done); v.currentTime = time;
+    setTimeout(done, 1500);
+  });
+}
+
+// Pop-in with an overshoot (the cartoon "boing"), then a gentle float, then a quick shrink out.
+function pop(el, t, w) {
+  const k = prog(t, w.at, 0.28), out = prog(t, w.end - 0.15, 0.15);
+  const boing = k < 1 ? Math.sin(k * Math.PI * 0.9) * 0.35 + k : 1;
+  const sc = (w.s || 1) * boing * (1 - out);
+  el.style.opacity = t >= w.at && t < w.end ? 1 : 0;
+  const fx = Math.sin((t - w.at) * 3) * 6, fy = Math.cos((t - w.at) * 2.4) * 6;
+  el.style.left = (w.x + fx) + "px"; el.style.top = (w.y + fy) + "px";
+  el.style.transform = `translate(-50%,-50%) rotate(${w.r + Math.sin((t - w.at) * 4) * 2}deg) scale(${sc})`;
+}
+
+function drawBulb(t) {
+  if (t < BULB.at || t > BULB.end) return;
+  const k = ease(prog(t, BULB.at, 0.25)), { bx, by } = BULB;
+  ctx.save(); ctx.translate(bx, by + (1 - k) * 40); ctx.scale(k, k);
+  // Glow and rays
+  const g = ctx.createRadialGradient(0, 0, 10, 0, 0, 170); g.addColorStop(0, "#fff7b0cc"); g.addColorStop(1, "#fff7b000");
+  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, 170, 0, 7); ctx.fill();
+  ctx.strokeStyle = "#ffc857"; ctx.lineWidth = 12; ctx.lineCap = "round";
+  for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2 + t * 1.5, r1 = 95, r2 = 130 + 12 * Math.sin(t * 12 + i);
+    ctx.beginPath(); ctx.moveTo(Math.cos(a) * r1, Math.sin(a) * r1); ctx.lineTo(Math.cos(a) * r2, Math.sin(a) * r2); ctx.stroke(); }
+  // Bulb and base
+  ctx.fillStyle = "#fff36b"; ctx.strokeStyle = "#1a1a1a"; ctx.lineWidth = 8;
+  ctx.beginPath(); ctx.arc(0, -10, 62, Math.PI * 0.8, Math.PI * 2.2); ctx.lineTo(24, 62); ctx.lineTo(-24, 62); ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = "#9aa3b5"; ctx.fillRect(-26, 62, 52, 28); ctx.strokeRect(-26, 62, 52, 28);
+  ctx.restore();
+}
+
+function drawSprint(t) {
+  if (t < SPRINT.at || t > SPRINT.end) return;
+  const k = t - SPRINT.at;
+  // Speed lines streaking across the frame
+  ctx.strokeStyle = "#ffffffcc"; ctx.lineCap = "round";
+  for (let i = 0; i < 26; i++) {
+    const y = 80 + rand(i) * 920, len = 200 + rand(i + 3) * 400, sp = 2600 + rand(i + 9) * 1600;
+    const x = ((rand(i + 5) * 2400 + k * sp) % 2600) - 300;
+    ctx.lineWidth = 3 + rand(i + 1) * 6; ctx.beginPath();
+    ctx.moveTo(SPRINT.dir < 0 ? 1920 - x : x, y); ctx.lineTo(SPRINT.dir < 0 ? 1920 - x + len : x - len, y); ctx.stroke();
+  }
+  // Cartoon smoke puffs where the runner took off, growing and fading
+  for (let i = 0; i < 9; i++) {
+    const born = i * 0.07, a = k - born; if (a < 0) continue;
+    const life = clamp(a / 0.9), r = 30 + 120 * ease(life);
+    ctx.globalAlpha = 0.85 * (1 - life); ctx.fillStyle = "#f1f1f1"; ctx.strokeStyle = "#bdbdbd"; ctx.lineWidth = 5;
+    const x = SPRINT.puffX + SPRINT.dir * -1 * (i * 30 + a * 120) + (rand(i) - .5) * 60, y = SPRINT.puffY - a * 60 - rand(i + 2) * 40;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill(); ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+}
+
+// ---------- Outro: the hero phone ----------
+function outro(t) {
+  const on = t >= 24.2;
+  $("stage").style.opacity = on ? 1 : 0;
+  if (!on) { $("end").style.opacity = 0; return; }
+  // Dawn background that brightens towards the logo.
+  const g = ctx.createRadialGradient(960, 1250, 100, 960, 1250, 1300);
+  g.addColorStop(0, `rgba(255,200,87,${0.25 + 0.35 * prog(t, 26.5, 2)})`); g.addColorStop(1, "rgba(255,200,87,0)");
+  ctx.fillStyle = "#0f1630"; ctx.fillRect(0, 0, 1920, 1080); ctx.fillStyle = g; ctx.fillRect(0, 0, 1920, 1080);
+  // Sparkles
+  for (let i = 0; i < 40; i++) { const tw = 0.5 + 0.5 * Math.sin(t * 5 + i * 1.7); ctx.globalAlpha = tw * 0.8; ctx.fillStyle = i % 3 ? "#fff" : "#ffc857";
+    ctx.beginPath(); ctx.arc(rand(i) * 1920, rand(i + 40) * 1080, 2 + 3 * tw, 0, 7); ctx.fill(); }
+  ctx.globalAlpha = 1;
+  // 24.2: phone flies in showing its back (logo where the Apple logo would be).
+  // 25.0: flips to the screen. 25.6 to 27.0: two swipes through the feed. 27.0: slides left for the logo.
+  const enter = ease(prog(t, 24.2, 0.5));
+  const flip = easeIO(prog(t, 25.0, 0.6)) * 180;
+  const slide = easeIO(prog(t, 26.9, 0.7));
+  const spinIn = (1 - enter) * -540;
+  $("phone").style.transform = `translateX(${slide * -470}px) translateY(${(1 - enter) * 300}px) scale(${lerp(1.5, 1, enter) * lerp(1, 0.92, slide)}) rotateY(${spinIn + flip + Math.sin(t * 1.5) * 4}deg) rotateZ(${(1 - enter) * 12 + slide * -4}deg)`;
+  const swipe1 = easeIO(prog(t, 25.75, 0.4)), swipe2 = easeIO(prog(t, 26.45, 0.4));
+  $("strip").style.transform = `translateY(${-(swipe1 + swipe2) * 900}px)`;
+  const e = ease(prog(t, 27.1, 0.6));
+  $("end").style.opacity = e; $("end").style.transform = `translateX(${(1 - e) * 80}px)`;
+  $("endsun").setAttribute("transform", `translate(0 ${(1 - ease(prog(t, 27.2, 0.8))) * 16})`);
+}
+
+window.seek = async (t) => {
+  ctx.clearRect(0, 0, 1920, 1080);
+  // Only the shot under the playhead is visible; its clip is seeked to the matching moment.
+  for (const e of shotEls) {
+    const active = t >= e.s.at && t < e.s.at + e.s.dur && t < 24.2;
+    const ok = e.ok();
+    e.v.style.opacity = active && ok ? 1 : 0;
+    e.slate.style.opacity = active && !ok ? 1 : 0;
+    if (active && ok) await seekVideo(e.v, e.s.in + (t - e.s.at));
+  }
+  drawBulb(t); drawSprint(t); outro(t);
+  WORDS_FX.forEach((w, i) => pop(wordEls[i], t, w));
+};
+</script></body></html>
