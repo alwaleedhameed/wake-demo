@@ -1,0 +1,336 @@
+window.WORDS={
+ "duration": 23.36,
+ "language": "en",
+ "words": [
+  {
+   "w": "Ever",
+   "start": 0.0,
+   "end": 0.2
+  },
+  {
+   "w": "got",
+   "start": 0.2,
+   "end": 0.42
+  },
+  {
+   "w": "chills",
+   "start": 0.42,
+   "end": 0.8
+  },
+  {
+   "w": "from",
+   "start": 0.8,
+   "end": 1.08
+  },
+  {
+   "w": "a",
+   "start": 1.08,
+   "end": 1.22
+  },
+  {
+   "w": "song?",
+   "start": 1.22,
+   "end": 1.5
+  },
+  {
+   "w": "Like",
+   "start": 1.9,
+   "end": 2.06
+  },
+  {
+   "w": "actual",
+   "start": 2.06,
+   "end": 2.62
+  },
+  {
+   "w": "shivers",
+   "start": 2.62,
+   "end": 3.24
+  },
+  {
+   "w": "down",
+   "start": 3.24,
+   "end": 3.5
+  },
+  {
+   "w": "your",
+   "start": 3.5,
+   "end": 3.68
+  },
+  {
+   "w": "spine?",
+   "start": 3.68,
+   "end": 4.02
+  },
+  {
+   "w": "In",
+   "start": 4.9,
+   "end": 5.04
+  },
+  {
+   "w": "2001,",
+   "start": 5.04,
+   "end": 5.74
+  },
+  {
+   "w": "neuroscientists",
+   "start": 6.08,
+   "end": 6.92
+  },
+  {
+   "w": "in",
+   "start": 6.92,
+   "end": 7.02
+  },
+  {
+   "w": "Montreal",
+   "start": 7.02,
+   "end": 7.38
+  },
+  {
+   "w": "scanned",
+   "start": 7.38,
+   "end": 7.92
+  },
+  {
+   "w": "people",
+   "start": 7.92,
+   "end": 8.38
+  },
+  {
+   "w": "while",
+   "start": 8.38,
+   "end": 8.6
+  },
+  {
+   "w": "they",
+   "start": 8.6,
+   "end": 8.74
+  },
+  {
+   "w": "listened",
+   "start": 8.74,
+   "end": 9.02
+  },
+  {
+   "w": "to",
+   "start": 9.02,
+   "end": 9.2
+  },
+  {
+   "w": "the",
+   "start": 9.2,
+   "end": 9.3
+  },
+  {
+   "w": "music",
+   "start": 9.3,
+   "end": 9.58
+  },
+  {
+   "w": "that",
+   "start": 9.58,
+   "end": 9.76
+  },
+  {
+   "w": "gave",
+   "start": 9.76,
+   "end": 9.98
+  },
+  {
+   "w": "them",
+   "start": 9.98,
+   "end": 10.16
+  },
+  {
+   "w": "chills.",
+   "start": 10.16,
+   "end": 10.56
+  },
+  {
+   "w": "And",
+   "start": 11.0,
+   "end": 11.26
+  },
+  {
+   "w": "the",
+   "start": 11.26,
+   "end": 11.36
+  },
+  {
+   "w": "brain",
+   "start": 11.36,
+   "end": 11.58
+  },
+  {
+   "w": "regions",
+   "start": 11.58,
+   "end": 11.88
+  },
+  {
+   "w": "that",
+   "start": 11.88,
+   "end": 12.1
+  },
+  {
+   "w": "lit",
+   "start": 12.1,
+   "end": 12.22
+  },
+  {
+   "w": "up?",
+   "start": 12.22,
+   "end": 12.46
+  },
+  {
+   "w": "The",
+   "start": 12.92,
+   "end": 13.06
+  },
+  {
+   "w": "same",
+   "start": 13.06,
+   "end": 13.38
+  },
+  {
+   "w": "reward",
+   "start": 13.38,
+   "end": 13.74
+  },
+  {
+   "w": "circuits",
+   "start": 13.74,
+   "end": 14.12
+  },
+  {
+   "w": "that",
+   "start": 14.12,
+   "end": 14.34
+  },
+  {
+   "w": "respond",
+   "start": 14.34,
+   "end": 14.62
+  },
+  {
+   "w": "to",
+   "start": 14.62,
+   "end": 14.84
+  },
+  {
+   "w": "food",
+   "start": 14.84,
+   "end": 15.22
+  },
+  {
+   "w": "and",
+   "start": 15.22,
+   "end": 15.5
+  },
+  {
+   "w": "other",
+   "start": 15.5,
+   "end": 15.78
+  },
+  {
+   "w": "things",
+   "start": 15.78,
+   "end": 16.02
+  },
+  {
+   "w": "we",
+   "start": 16.02,
+   "end": 16.18
+  },
+  {
+   "w": "love.",
+   "start": 16.18,
+   "end": 16.44
+  },
+  {
+   "w": "So",
+   "start": 16.92,
+   "end": 17.06
+  },
+  {
+   "w": "your",
+   "start": 17.06,
+   "end": 17.2
+  },
+  {
+   "w": "favorite",
+   "start": 17.2,
+   "end": 17.5
+  },
+  {
+   "w": "song",
+   "start": 17.5,
+   "end": 17.94
+  },
+  {
+   "w": "isn't",
+   "start": 17.94,
+   "end": 18.5
+  },
+  {
+   "w": "just",
+   "start": 18.5,
+   "end": 18.76
+  },
+  {
+   "w": "a",
+   "start": 18.76,
+   "end": 18.96
+  },
+  {
+   "w": "song.",
+   "start": 18.96,
+   "end": 19.28
+  },
+  {
+   "w": "To",
+   "start": 19.74,
+   "end": 19.86
+  },
+  {
+   "w": "your",
+   "start": 19.86,
+   "end": 19.98
+  },
+  {
+   "w": "brain,",
+   "start": 19.98,
+   "end": 20.32
+  },
+  {
+   "w": "it's",
+   "start": 20.64,
+   "end": 20.84
+  },
+  {
+   "w": "a",
+   "start": 20.84,
+   "end": 20.92
+  },
+  {
+   "w": "reward.",
+   "start": 20.92,
+   "end": 21.28
+  },
+  {
+   "w": "So",
+   "start": 21.82,
+   "end": 22.08
+  },
+  {
+   "w": "what's",
+   "start": 22.08,
+   "end": 22.74
+  },
+  {
+   "w": "yours?",
+   "start": 22.74,
+   "end": 22.92
+  }
+ ]
+};

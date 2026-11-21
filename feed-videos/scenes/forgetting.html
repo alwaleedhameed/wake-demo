@@ -1,0 +1,84 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@500;700&display=block" rel="stylesheet">
+<style>
+  html,body{margin:0;width:720px;height:1280px;overflow:hidden;background:#f4f6ff;
+    background-image:linear-gradient(#dfe5ff 1px,transparent 1px),linear-gradient(90deg,#dfe5ff 1px,transparent 1px);background-size:48px 48px}
+  canvas{position:absolute;inset:0}
+  .t{position:absolute;left:96px;right:96px;opacity:0;color:#16204a}
+  .big{font-family:'Instrument Serif',serif;font-size:132px;line-height:.95}
+  .mid{font-family:'Instrument Serif',serif;font-size:64px;line-height:1.05}
+  .lab{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:30px;color:#3b4cff}
+  .syl{position:absolute;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:46px;color:#16204a;opacity:0}
+  em{font-style:italic;color:#3b4cff}
+</style></head><body>
+<canvas id="c" width="720" height="1280"></canvas>
+<div class="t big" id="year" style="top:120px">1880</div>
+<div class="t lab" id="who" style="top:270px">Hermann Ebbinghaus, alone with a notebook</div>
+<div class="t mid" id="q" style="top:150px">How fast do we <em>forget</em>?</div>
+<div class="t big" id="pct" style="top:120px">56%</div>
+<div class="t lab" id="pctSub" style="top:270px">had to be relearned after just one hour</div>
+<div class="t mid" id="rep" style="top:140px">2015, Amsterdam.<br>Same curve.</div>
+<div class="t mid" id="trick" style="top:150px">The trick: <em>space</em> your reviews</div>
+<div class="t mid" id="wake" style="top:150px">One small question, <em>tomorrow</em>.</div>
+<script src="../words/forgetting.js"></script>
+<script src="common.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const ctx = $("c").getContext("2d");
+const SYL = ["DAX","BOK","YAT","ZEP","MIF","LUD","KEB","ROJ","TIV","WUS","GAP","FOM"];
+const syl = SYL.map((s, i) => { const d = document.createElement("div"); d.className = "syl"; d.textContent = s; document.body.appendChild(d); return d; });
+const T = { q: at("How"), brutal: at("brutal"), rep: at("2015"), trick: at("trick"), spaced: at("spaced"), wake: at("That's"), end: WORDS.duration };
+
+// Chart area. x = time since learning, y = how much is still remembered.
+const X0 = 110, X1 = 620, Y0 = 520, Y1 = 1060;
+const axis = (k) => { ctx.strokeStyle = "#16204a"; ctx.lineWidth = 4; ctx.globalAlpha = k;
+  ctx.beginPath(); ctx.moveTo(X0, Y0); ctx.lineTo(X0, Y1); ctx.lineTo(X1, Y1); ctx.stroke();
+  ctx.font = "700 24px 'Space Grotesk'"; ctx.fillStyle = "#16204a";
+  ctx.fillText("remembered", X0 + 12, Y0 + 10); ctx.fillText("time →", X1 - 90, Y1 + 40); ctx.globalAlpha = 1; };
+// Ebbinghaus-style decay; each review at x=r resets memory and the next decay is slower.
+function curve(k, reviews, color, width) {
+  ctx.strokeStyle = color; ctx.lineWidth = width; ctx.lineCap = "round"; ctx.beginPath();
+  const n = Math.floor(200 * k);
+  for (let i = 0; i <= n; i++) {
+    const x = i / 200; let last = 0, s = 0.12;
+    for (const r of reviews) if (x >= r) { last = r; s *= 2.6; }
+    const y = 0.25 + 0.75 * Math.exp(-(x - last) / s);
+    const px = lerp(X0, X1, x), py = lerp(Y1, Y0, y);
+    i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
+  }
+  ctx.stroke();
+}
+
+function draw(t) {
+  ctx.clearRect(0, 0, 720, 1280);
+  // Nonsense syllables drift in while he "memorises" them, then scatter as forgetting starts.
+  syl.forEach((d, i) => {
+    const s = at("nonsense") + i * 0.18, gone = T.q;
+    const k = ease(prog(t, s, 0.4)) * (1 - prog(t, gone, 0.6));
+    const x = 110 + (i % 3) * 180 + rand(i) * 40, y = 560 + Math.floor(i / 3) * 110;
+    d.style.opacity = k; d.style.left = x + "px"; d.style.top = (y + (1 - k) * 30 + prog(t, gone, 0.6) * (rand(i + 5) - .5) * 300) + "px";
+    d.style.transform = `rotate(${(rand(i + 11) - .5) * 14 + prog(t, gone, .6) * 90}deg)`;
+  });
+  const chart = prog(t, T.q + 0.3, 0.5);
+  if (chart > 0) {
+    axis(chart);
+    curve(prog(t, T.q + 0.5, 2.2) * (t < T.trick ? 1 : 1 - prog(t, T.trick, .4)), [], "#16204a", 7);
+    if (t > T.rep + 1) curve(prog(t, T.rep + 1, 1.6) * (1 - prog(t, T.trick, .4)), [], "#3b4cff88", 14);
+    if (t > T.trick) curve(prog(t, T.trick + 0.6, 4.5), [0.18, 0.42, 0.7], "#3b4cff", 8);
+    // Review markers drop in with the curve.
+    [0.18, 0.42, 0.7].forEach((r, i) => {
+      const k = prog(t, T.trick + 0.6 + r * 4.5, 0.3);
+      if (k > 0) { ctx.globalAlpha = k; ctx.fillStyle = "#3b4cff"; ctx.beginPath(); ctx.arc(lerp(X0, X1, r), Y0 + 40, 14, 0, 7); ctx.fill(); ctx.globalAlpha = 1; }
+    });
+  }
+  show($("year"), t, 0, T.q - 0.2, { scale: 1.2, dy: 0 });
+  show($("who"), t, at("Hermann"), T.q - 0.2);
+  show($("q"), t, T.q, T.brutal + 0.8);
+  show($("pct"), t, at("after"), T.rep - 0.2, { scale: 1.3, dy: 0 });
+  show($("pctSub"), t, at("hour"), T.rep - 0.2);
+  show($("rep"), t, T.rep, T.trick - 0.2);
+  show($("trick"), t, T.trick, T.wake - 0.2);
+  show($("wake"), t, T.wake, T.end + 1);
+}
+</script></body></html>

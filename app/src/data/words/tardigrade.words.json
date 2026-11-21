@@ -1,0 +1,366 @@
+{
+ "duration": 26.96,
+ "language": "en",
+ "words": [
+  {
+   "w": "This",
+   "start": 0.0,
+   "end": 0.38
+  },
+  {
+   "w": "is",
+   "start": 0.38,
+   "end": 0.66
+  },
+  {
+   "w": "a",
+   "start": 0.66,
+   "end": 0.78
+  },
+  {
+   "w": "tardigrade,",
+   "start": 0.78,
+   "end": 1.36
+  },
+  {
+   "w": "half",
+   "start": 1.8,
+   "end": 2.04
+  },
+  {
+   "w": "a",
+   "start": 2.04,
+   "end": 2.16
+  },
+  {
+   "w": "millimeter",
+   "start": 2.16,
+   "end": 2.4
+  },
+  {
+   "w": "long,",
+   "start": 2.4,
+   "end": 2.82
+  },
+  {
+   "w": "eight",
+   "start": 3.14,
+   "end": 3.36
+  },
+  {
+   "w": "chubby",
+   "start": 3.36,
+   "end": 3.8
+  },
+  {
+   "w": "legs,",
+   "start": 3.8,
+   "end": 4.16
+  },
+  {
+   "w": "and",
+   "start": 4.56,
+   "end": 4.62
+  },
+  {
+   "w": "in",
+   "start": 4.62,
+   "end": 4.72
+  },
+  {
+   "w": "2007,",
+   "start": 4.72,
+   "end": 5.48
+  },
+  {
+   "w": "it",
+   "start": 5.92,
+   "end": 6.1
+  },
+  {
+   "w": "went",
+   "start": 6.1,
+   "end": 6.3
+  },
+  {
+   "w": "to",
+   "start": 6.3,
+   "end": 6.48
+  },
+  {
+   "w": "space.",
+   "start": 6.48,
+   "end": 6.9
+  },
+  {
+   "w": "No",
+   "start": 7.76,
+   "end": 7.92
+  },
+  {
+   "w": "suit,",
+   "start": 7.92,
+   "end": 8.24
+  },
+  {
+   "w": "no",
+   "start": 8.74,
+   "end": 8.86
+  },
+  {
+   "w": "spaceship",
+   "start": 8.86,
+   "end": 9.22
+  },
+  {
+   "w": "walls.",
+   "start": 9.22,
+   "end": 9.62
+  },
+  {
+   "w": "Scientists",
+   "start": 10.18,
+   "end": 10.52
+  },
+  {
+   "w": "dried",
+   "start": 10.52,
+   "end": 10.98
+  },
+  {
+   "w": "them",
+   "start": 10.98,
+   "end": 11.2
+  },
+  {
+   "w": "out,",
+   "start": 11.2,
+   "end": 11.4
+  },
+  {
+   "w": "strapped",
+   "start": 11.66,
+   "end": 11.98
+  },
+  {
+   "w": "them",
+   "start": 11.98,
+   "end": 12.1
+  },
+  {
+   "w": "to",
+   "start": 12.1,
+   "end": 12.22
+  },
+  {
+   "w": "the",
+   "start": 12.22,
+   "end": 12.34
+  },
+  {
+   "w": "outside",
+   "start": 12.34,
+   "end": 12.66
+  },
+  {
+   "w": "of",
+   "start": 12.66,
+   "end": 12.88
+  },
+  {
+   "w": "a",
+   "start": 12.88,
+   "end": 12.96
+  },
+  {
+   "w": "satellite,",
+   "start": 12.96,
+   "end": 13.36
+  },
+  {
+   "w": "and",
+   "start": 13.74,
+   "end": 13.84
+  },
+  {
+   "w": "opened",
+   "start": 13.84,
+   "end": 14.12
+  },
+  {
+   "w": "them",
+   "start": 14.12,
+   "end": 14.3
+  },
+  {
+   "w": "straight",
+   "start": 14.3,
+   "end": 14.74
+  },
+  {
+   "w": "to",
+   "start": 14.74,
+   "end": 14.98
+  },
+  {
+   "w": "the",
+   "start": 14.98,
+   "end": 15.08
+  },
+  {
+   "w": "vacuum",
+   "start": 15.08,
+   "end": 15.4
+  },
+  {
+   "w": "of",
+   "start": 15.4,
+   "end": 15.56
+  },
+  {
+   "w": "space.",
+   "start": 15.56,
+   "end": 15.88
+  },
+  {
+   "w": "Back",
+   "start": 16.44,
+   "end": 16.6
+  },
+  {
+   "w": "on",
+   "start": 16.6,
+   "end": 16.8
+  },
+  {
+   "w": "Earth,",
+   "start": 16.8,
+   "end": 17.08
+  },
+  {
+   "w": "they",
+   "start": 17.38,
+   "end": 17.54
+  },
+  {
+   "w": "added",
+   "start": 17.54,
+   "end": 17.8
+  },
+  {
+   "w": "water,",
+   "start": 17.8,
+   "end": 18.12
+  },
+  {
+   "w": "and",
+   "start": 18.62,
+   "end": 18.8
+  },
+  {
+   "w": "they",
+   "start": 18.8,
+   "end": 18.92
+  },
+  {
+   "w": "woke",
+   "start": 18.92,
+   "end": 19.1
+  },
+  {
+   "w": "up.",
+   "start": 19.1,
+   "end": 19.4
+  },
+  {
+   "w": "Some",
+   "start": 19.8,
+   "end": 20.2
+  },
+  {
+   "w": "of",
+   "start": 20.2,
+   "end": 20.32
+  },
+  {
+   "w": "them",
+   "start": 20.32,
+   "end": 20.44
+  },
+  {
+   "w": "even",
+   "start": 20.44,
+   "end": 20.62
+  },
+  {
+   "w": "laid",
+   "start": 20.62,
+   "end": 20.88
+  },
+  {
+   "w": "eggs",
+   "start": 20.88,
+   "end": 21.3
+  },
+  {
+   "w": "that",
+   "start": 21.3,
+   "end": 21.5
+  },
+  {
+   "w": "hatched,",
+   "start": 21.5,
+   "end": 22.12
+  },
+  {
+   "w": "the",
+   "start": 22.44,
+   "end": 22.56
+  },
+  {
+   "w": "first",
+   "start": 22.56,
+   "end": 22.9
+  },
+  {
+   "w": "animal",
+   "start": 22.9,
+   "end": 23.3
+  },
+  {
+   "w": "known",
+   "start": 23.3,
+   "end": 23.58
+  },
+  {
+   "w": "to",
+   "start": 23.58,
+   "end": 23.8
+  },
+  {
+   "w": "survive",
+   "start": 23.8,
+   "end": 24.14
+  },
+  {
+   "w": "open",
+   "start": 24.14,
+   "end": 24.48
+  },
+  {
+   "w": "space.",
+   "start": 24.48,
+   "end": 24.86
+  },
+  {
+   "w": "Absolute",
+   "start": 25.3,
+   "end": 26.1
+  },
+  {
+   "w": "legend.",
+   "start": 26.1,
+   "end": 26.54
+  }
+ ]
+}

@@ -1,0 +1,79 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Rubik:wght@800&display=block" rel="stylesheet">
+<style>
+  html,body{margin:0;width:720px;height:1280px;overflow:hidden;background:#12002b}
+  canvas{position:absolute;inset:0}
+  #bear{position:absolute;left:50%;top:50%;width:640px;margin-left:-320px;margin-top:-250px}
+  #bear img{width:100%;display:block}
+  #bear .tint{position:absolute;inset:0;mix-blend-mode:screen}
+  .s{position:absolute;font-family:Bungee,sans-serif;font-size:84px;line-height:.95;color:#fff;opacity:0;text-align:center;left:0;right:0;
+     text-shadow:5px 5px 0 #ff2bd6,-5px -5px 0 #19f0ff}
+  .tag{position:absolute;font-family:Rubik,sans-serif;font-weight:800;font-size:38px;padding:10px 22px;border-radius:14px;opacity:0;color:#12002b}
+</style></head><body>
+<canvas id="c" width="720" height="1280"></canvas>
+<div id="bear"><img id="img" src="tardigrade-cut.png"></div>
+<div class="s" id="name" style="top:110px">TARDI&shy;GRADE</div>
+<div class="tag" id="mm" style="left:100px;top:930px;background:#19f0ff;transform:rotate(-6deg)">0.5 mm</div>
+<div class="tag" id="legs" style="right:100px;top:1010px;background:#ff2bd6;transform:rotate(5deg)">8 chubby legs</div>
+<div class="s" id="y2007" style="top:140px">2007</div>
+<div class="s" id="nosuit" style="top:130px;font-size:110px">NO SUIT</div>
+<div class="s" id="vac" style="top:120px;font-size:84px">OPEN<br>VACUUM</div>
+<div class="s" id="water" style="top:130px;font-size:92px">+ WATER</div>
+<div class="s" id="woke" style="top:110px;font-size:100px">THEY<br>WOKE UP</div>
+<div class="s" id="first" style="top:100px;font-size:70px">FIRST ANIMAL<br>TO SURVIVE<br>OPEN SPACE</div>
+<script src="../words/tardigrade.js"></script>
+<script src="common.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const ctx = $("c").getContext("2d");
+const T = { y: at("2007"), suit: at("No"), sci: at("Scientists"), vac: at("vacuum"), back: at("Back"), woke: at("woke"),
+            eggs: at("Some"), first: at("first"), end: WORDS.duration };
+// Moments where the picture "glitches": each hard cut in the script.
+const HITS = [0, T.y, T.suit, T.vac, T.back, T.woke, T.first];
+
+function draw(t) {
+  // Glitch strength spikes on each hit and decays in 0.25 s.
+  let g = 0; for (const h of HITS) if (t >= h) g = Math.max(g, 1 - (t - h) / 0.25);
+  g = clamp(g);
+  const inSpace = t >= T.y && t < T.back;
+  // Background: a pink-cyan blob before launch, a warp-speed starfield in space, a bright pool after.
+  ctx.fillStyle = inSpace ? "#05000f" : t >= T.back ? "#06213a" : "#12002b"; ctx.fillRect(0, 0, 720, 1280);
+  if (inSpace) {
+    for (let i = 0; i < 160; i++) {
+      const a = rand(i) * Math.PI * 2, sp = 0.4 + rand(i + 50), d = ((t - T.y) * 260 * sp + rand(i + 9) * 800) % 800;
+      const x = 360 + Math.cos(a) * d, y = 640 + Math.sin(a) * d;
+      ctx.strokeStyle = i % 3 ? "#ffffff" : "#19f0ff"; ctx.lineWidth = 2; ctx.globalAlpha = clamp(d / 300);
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(360 + Math.cos(a) * (d - 30 * sp), 640 + Math.sin(a) * (d - 30 * sp)); ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  } else {
+    const grd = ctx.createRadialGradient(360, 640, 50, 360, 640, 700);
+    grd.addColorStop(0, t >= T.back ? "#19f0ff55" : "#ff2bd655"); grd.addColorStop(1, "#0000"); ctx.fillStyle = grd; ctx.fillRect(0, 0, 720, 1280);
+  }
+  // The tardigrade: bounces, spins slowly in space, shrinks into a dry "tun" and pops back on water.
+  const tun = prog(t, T.sci, 0.6) * (1 - prog(t, T.woke, 0.4));
+  const bounce = 1 + 0.04 * Math.sin(t * 7);
+  const sc = (1 - 0.45 * tun) * bounce * (1 + 0.15 * g);
+  const rot = inSpace ? (t - T.y) * 18 : Math.sin(t * 3) * 3;
+  $("bear").style.transform = `translate(${(rand(Math.floor(t * 30)) - .5) * 30 * g}px,0) rotate(${rot}deg) scale(${sc})`;
+  $("bear").style.filter = `drop-shadow(${8 * g + 3}px 0 0 #ff2bd6) drop-shadow(${-8 * g - 3}px 0 0 #19f0ff) brightness(${1 - 0.4 * tun})`;
+  $("img").style.filter = `grayscale(1) sepia(1) saturate(3) hue-rotate(${t >= T.back ? 140 : 270}deg) contrast(1.2)`;
+  // Eggs that hatched: little pop circles.
+  if (t > T.eggs) for (let i = 0; i < 9; i++) {
+    const k = ease(prog(t, T.eggs + 0.6 + i * 0.12, 0.3));
+    ctx.globalAlpha = k * (1 - prog(t, T.first, .4)); ctx.fillStyle = i % 2 ? "#ff2bd6" : "#fff36b";
+    ctx.beginPath(); ctx.arc(140 + (i % 3) * 220 + rand(i) * 30, 980 + Math.floor(i / 3) * 80, 22 * k, 0, 7); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+  show($("name"), t, 0, T.y - 0.1, { dy: 0, scale: 1.5 });
+  show($("mm"), t, at("half"), T.y - 0.1, { scale: 1.6 });
+  show($("legs"), t, at("eight"), T.y - 0.1, { scale: 1.6 });
+  show($("y2007"), t, T.y, T.suit - 0.1, { dy: 0, scale: 1.8 });
+  show($("nosuit"), t, T.suit, T.sci - 0.1, { dy: 0, scale: 1.8 });
+  show($("vac"), t, at("opened"), T.back - 0.1, { dy: 0, scale: 1.6 });
+  show($("water"), t, at("water"), T.woke - 0.1, { dy: 0, scale: 1.8 });
+  show($("woke"), t, T.woke, T.first - 0.1, { dy: 0, scale: 2 });
+  show($("first"), t, T.first, T.end + 1, { dy: 0, scale: 1.4 });
+}
+</script></body></html>

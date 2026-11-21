@@ -1,0 +1,90 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=block" rel="stylesheet">
+<style>
+  /* 30-second Wake promo, 1920x1080 for the projector. Clip slots are marked: tomorrow the team's
+     own footage is laid over them with ffmpeg (see assemble.sh). */
+  :root{--night:#0f1630;--sun:#ffc857;--mist:#eef1fa;--haze:#8d97b5}
+  html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:var(--night);font-family:'Bricolage Grotesque',sans-serif;color:var(--mist)}
+  canvas{position:absolute;inset:0}
+  .t{position:absolute;left:0;right:0;text-align:center;opacity:0;font-weight:800;letter-spacing:-.02em}
+  .slot{position:absolute;inset:0;display:grid;place-items:center;background:repeating-linear-gradient(45deg,#1b2547 0 40px,#18213f 40px 80px);opacity:0;
+        font-family:'Atkinson Hyperlegible';font-size:46px;color:var(--haze);text-align:center}
+  .phone{position:absolute;top:150px;width:360px;height:780px;border-radius:48px;overflow:hidden;box-shadow:0 0 0 12px #05070f,0 40px 120px #000a;opacity:0;background:#000}
+  .phone img{width:100%;height:100%;object-fit:cover}
+  .logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:flex-end;gap:28px;opacity:0}
+  .logo span{font-size:220px;line-height:.75;letter-spacing:-.05em}
+</style></head><body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<div class="t" id="a1" style="top:110px;font-size:72px">We each mapped what shapes what we believe.</div>
+<div class="t" id="a2" style="top:110px;font-size:72px">Real research barely made the map.</div>
+<div class="slot" id="clip1">CLIP 1 (6.0 to 11.0 s)<br>Team in the classroom: one of us teaching, others scrolling phones</div>
+<div class="t" id="c1" style="top:430px;font-size:110px">What if the scroll<br>made you smarter?</div>
+<div class="logo" id="logo"><svg width="300" height="250" viewBox="0 0 48 40"><path id="sunp" d="M8 30a16 16 0 0 1 32 0z" fill="#ffc857"/><rect x="2" y="32" width="44" height="4" rx="2" fill="#eef1fa"/></svg><span>wake</span></div>
+<div class="phone" id="p1" style="left:260px"><img src="shots/feed.png"></div>
+<div class="phone" id="p2" style="left:780px"><img src="shots/source.png"></div>
+<div class="phone" id="p3" style="left:1300px"><img src="shots/read.png"></div>
+<div class="t" id="b1" style="top:60px;font-size:60px">Real sources.</div>
+<div class="t" id="b2" style="top:60px;font-size:60px">Verified creators.</div>
+<div class="t" id="b3" style="top:60px;font-size:60px">Watch it, read it or listen.</div>
+<div class="slot" id="clip2">CLIP 2 (22.0 to 26.0 s)<br>Team reacting to Wake on a phone, laughing, pointing</div>
+<div class="t" id="e1" style="top:700px;font-size:64px;color:var(--sun)">The scroll that leaves you smarter.</div>
+<script src="../feed-videos/scenes/common.js"></script>
+<script>
+window.WORDS = { words: [], duration: 30 };
+const $ = (id) => document.getElementById(id);
+const ctx = $("c").getContext("2d");
+// The influence map from the workshop: big circles close to "you" shape you most.
+const NODES = [
+  { label: "Social media", r: 190, a: -0.5, d: 330, hue: "#ff4d6d" },
+  { label: "Friends", r: 120, a: 1.0, d: 300, hue: "#7b5cff" },
+  { label: "Family", r: 110, a: 2.4, d: 290, hue: "#19c3a0" },
+  { label: "News", r: 85, a: 3.6, d: 360, hue: "#ffb200" },
+  { label: "Research", r: 26, a: 5.0, d: 470, hue: "#ffc857" },
+];
+function map(t) {
+  const k = ease(prog(t, 0.3, 1.2)), out = 1 - prog(t, 5.6, 0.4);
+  if (out <= 0) return;
+  ctx.save(); ctx.globalAlpha = out; ctx.translate(960, 600);
+  ctx.font = "800 40px 'Bricolage Grotesque'"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  NODES.forEach((n, i) => {
+    const kk = ease(prog(t, 0.4 + i * 0.25, 0.6)) * k;
+    const x = Math.cos(n.a) * n.d * kk, y = Math.sin(n.a) * n.d * 0.62 * kk;
+    ctx.strokeStyle = "#ffffff30"; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(x, y); ctx.stroke();
+    const pulse = n.label === "Research" && t > 3 ? 1 + 0.25 * Math.sin((t - 3) * 8) : 1;
+    ctx.fillStyle = n.hue; ctx.beginPath(); ctx.arc(x, y, n.r * kk * pulse, 0, 7); ctx.fill();
+    ctx.fillStyle = n.label === "Research" ? "#ffc857" : "#0f1630";
+    ctx.font = n.label === "Research" ? "800 34px 'Bricolage Grotesque'" : "800 40px 'Bricolage Grotesque'";
+    ctx.fillText(n.label, x, n.label === "Research" ? y + 60 : y);
+  });
+  ctx.fillStyle = "#eef1fa"; ctx.beginPath(); ctx.arc(0, 0, 70 * k, 0, 7); ctx.fill();
+  ctx.fillStyle = "#0f1630"; ctx.fillText("you", 0, 0);
+  ctx.restore();
+}
+function draw(t) {
+  ctx.fillStyle = "#0f1630"; ctx.fillRect(0, 0, 1920, 1080);
+  // Dawn glow that rises through the video, ending bright behind the logo.
+  const g = ctx.createRadialGradient(960, 1300, 100, 960, 1300, 900 + 300 * prog(t, 11, 19));
+  g.addColorStop(0, `rgba(255,200,87,${0.12 + 0.35 * prog(t, 11, 19)})`); g.addColorStop(1, "rgba(255,200,87,0)");
+  ctx.fillStyle = g; ctx.fillRect(0, 0, 1920, 1080);
+  map(t);
+  show($("a1"), t, 0.2, 3.0, { dy: 30 });
+  show($("a2"), t, 3.1, 5.9, { dy: 30 });
+  $("clip1").style.opacity = t >= 6 && t < 11 ? 1 : 0;
+  show($("c1"), t, 11.1, 13.4, { dy: 0, scale: 1.15 });
+  // Logo: the sun rises out of the horizon line.
+  const L = ease(prog(t, 13.5, 0.8)) * (1 - prog(t, 15.6, 0.4));
+  $("logo").style.opacity = L; $("sunp").setAttribute("transform", `translate(0 ${(1 - ease(prog(t, 13.6, 0.9))) * 16})`);
+  // Three real app screens slide up, one per line of the message.
+  ["p1", "p2", "p3"].forEach((id, i) => {
+    const s = 16 + i * 2;
+    const k = ease(prog(t, s, 0.6)) * (1 - prog(t, 21.6, 0.4));
+    $(id).style.opacity = k; $(id).style.transform = `translateY(${(1 - k) * 200}px) rotate(${(i - 1) * 3}deg)`;
+  });
+  show($("b1"), t, 16, 17.9, { dy: 20 }); show($("b2"), t, 18, 19.9, { dy: 20 }); show($("b3"), t, 20, 21.9, { dy: 20 });
+  $("clip2").style.opacity = t >= 22 && t < 26 ? 1 : 0;
+  const E = ease(prog(t, 26.1, 0.8));
+  if (t >= 26) { $("logo").style.opacity = E; $("sunp").setAttribute("transform", `translate(0 ${(1 - ease(prog(t, 26.2, 0.9))) * 16})`); }
+  show($("e1"), t, 27, 31, { dy: 20 });
+}
+</script></body></html>

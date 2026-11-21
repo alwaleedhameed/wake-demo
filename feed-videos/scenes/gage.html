@@ -1,0 +1,71 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Playfair+Display:ital,wght@0,800;1,500&display=block" rel="stylesheet">
+<style>
+  html,body{margin:0;width:720px;height:1280px;overflow:hidden;background:#140d07}
+  .img{position:absolute;left:50%;top:56%;transform-origin:center}
+  .img img{display:block;filter:sepia(.9) contrast(1.15) brightness(.85)}
+  #portrait{width:520px;margin:-330px 0 0 -260px}#portrait img{width:100%}
+  #skull{width:420px;margin:-300px 0 0 -210px;opacity:0}#skull img{width:100%;filter:sepia(.6) invert(.88) contrast(1.4)}
+  canvas{position:absolute;inset:0}
+  .t{position:absolute;left:96px;right:96px;opacity:0;color:#f1dfbf}
+  .type{font-family:'Special Elite',monospace;font-size:44px}
+  .head{font-family:'Playfair Display',serif;font-weight:800;font-size:92px;line-height:1}
+  .quote{font-family:'Playfair Display',serif;font-style:italic;font-size:64px;line-height:1.1}
+  #stamp{position:absolute;left:120px;top:540px;font-family:'Special Elite';font-size:64px;color:#d9433a;border:6px solid #d9433a;
+    padding:6px 22px;transform:rotate(-12deg);opacity:0}
+  #ref{position:absolute;left:96px;right:96px;bottom:180px;font-family:'Special Elite';font-size:26px;color:#c9b48f;opacity:0}
+</style></head><body>
+<div class="img" id="portrait"><img src="gage.jpg"></div>
+<div class="img" id="skull"><img src="gage_skull.jpg"></div>
+<canvas id="c" width="720" height="1280"></canvas>
+<div class="t type" id="place" style="top:150px">Vermont, 1848.</div>
+<div class="t head" id="surv" style="top:130px">He survived.</div>
+<div class="t quote" id="quote" style="top:140px">"No longer Gage."</div>
+<div id="stamp">HALF THE STORY</div>
+<div class="t type" id="chile" style="top:150px">Years later: stagecoach driver, Chile.</div>
+<div class="t quote" id="moral" style="top:130px">The famous version isn't always the true one.</div>
+<div id="ref">Macmillan &amp; Lena (2010), Rehabilitating Phineas Gage</div>
+<script src="../words/gage.js"></script>
+<script src="common.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const ctx = $("c").getContext("2d");
+const T = { exp: at("explosion"), rod: at("rod"), surv: at("survives"), text: at("Textbooks"), no: at("no"),
+            but: at("But"), hist: at("Historians"), chile: at("Chile"), may: at("may"), some: at("Sometimes"), end: WORDS.duration };
+
+function draw(t) {
+  // Projector flicker on everything.
+  const flick = 0.88 + 0.12 * rand(Math.floor(t * 12));
+  document.body.style.filter = `brightness(${flick})`;
+  // Portrait first; the skull diagram takes over when the rod is mentioned, then the portrait returns.
+  const skull = prog(t, T.rod - 0.3, 0.4) * (1 - prog(t, T.surv, 0.5));
+  $("skull").style.opacity = skull;
+  $("portrait").style.opacity = 1 - skull;
+  $("portrait").style.transform = `scale(${1.05 + t * 0.006}) rotate(${prog(t, T.but, .3) * -2}deg)`;
+  ctx.clearRect(0, 0, 720, 1280);
+  // The explosion: a white flash that fades quickly.
+  const flash = 1 - prog(t, T.exp, 0.35);
+  if (t >= T.exp && flash > 0) { ctx.fillStyle = `rgba(255,240,210,${flash})`; ctx.fillRect(0, 0, 720, 1280); }
+  // The rod's path through the skull, drawn as a red line.
+  if (skull > 0) {
+    const k = ease(prog(t, T.rod, 0.6));
+    ctx.strokeStyle = "#d9433a"; ctx.lineWidth = 10; ctx.lineCap = "round"; ctx.globalAlpha = skull;
+    ctx.beginPath(); ctx.moveTo(300, 1000); ctx.lineTo(lerp(300, 420, k), lerp(1000, 420, k)); ctx.stroke(); ctx.globalAlpha = 1;
+  }
+  // Scratches and dust, refreshed 12 times a second like old film.
+  const f = Math.floor(t * 12);
+  ctx.strokeStyle = "#f1dfbf22"; ctx.lineWidth = 2;
+  for (let i = 0; i < 3; i++) { const x = rand(f * 13 + i) * 720; ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x + 8, 1280); ctx.stroke(); }
+  const v = ctx.createRadialGradient(360, 640, 200, 360, 640, 800);
+  v.addColorStop(0, "#0000"); v.addColorStop(1, "#000e"); ctx.fillStyle = v; ctx.fillRect(0, 0, 720, 1280);
+
+  show($("place"), t, 0, T.exp - 0.1, { dy: 0 });
+  show($("surv"), t, T.surv, T.text - 0.1, { dy: 0, scale: 1.3 });
+  show($("quote"), t, T.no - 0.3, T.but - 0.1);
+  show($("stamp"), t, T.but + 0.6, T.hist + 0.2, { dy: 0, scale: 2.2, inDur: 0.15 });
+  show($("chile"), t, T.hist, T.may - 0.1);
+  show($("moral"), t, T.some, T.end + 1);
+  show($("ref"), t, T.hist, T.end + 1, { dy: 0 });
+}
+</script></body></html>

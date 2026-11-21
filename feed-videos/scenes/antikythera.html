@@ -1,0 +1,95 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;800&family=Cormorant+Garamond:ital,wght@1,500&display=block" rel="stylesheet">
+<style>
+  html,body{margin:0;width:720px;height:1280px;overflow:hidden;background:#04161c}
+  #sea{position:absolute;inset:0;background:radial-gradient(120% 70% at 50% 0%,#1f6a74 0%,#0a3440 40%,#04161c 80%)}
+  .ray{position:absolute;top:-200px;width:120px;height:1700px;background:linear-gradient(#bfe9e866,#bfe9e800);filter:blur(18px);transform-origin:top center}
+  #photo{position:absolute;left:50%;top:57%;width:620px;height:560px;margin:-280px 0 0 -310px;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px #000a}
+  #photo img{width:100%;height:100%;object-fit:cover;filter:sepia(.55) saturate(1.3) contrast(1.1) brightness(.9)}
+  #xray{position:absolute;inset:0;background:#0b3c46;mix-blend-mode:color;opacity:0}
+  canvas{position:absolute;inset:0}
+  .t{position:absolute;left:0;right:0;text-align:center;color:#f3e2b8;font-family:Cinzel,serif;opacity:0;text-shadow:0 4px 30px #000}
+  #year{top:150px;font-size:130px;font-weight:800;letter-spacing:6px;color:#e7c27a}
+  #isle{top:330px;font-size:34px;font-weight:500;letter-spacing:10px}
+  #gears{top:140px;font-size:120px;font-weight:800;color:#e7c27a}
+  #gearsSub{top:290px;font-size:34px;letter-spacing:8px}
+  #age{top:150px;font-size:92px;font-weight:800;color:#e7c27a}
+  #ageSub{top:265px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:42px}
+  #final{top:170px;font-size:54px;font-weight:800;line-height:1.15;padding:0 90px}
+  #finalSub{top:400px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:44px}
+</style></head><body>
+<div id="sea"></div>
+<div class="ray" style="left:90px;transform:rotate(14deg)"></div>
+<div class="ray" style="left:330px;transform:rotate(4deg)"></div>
+<div class="ray" style="left:540px;transform:rotate(-10deg)"></div>
+<div id="photo"><img src="antikythera.jpg"><div id="xray"></div></div>
+<canvas id="c" width="720" height="1280"></canvas>
+<div class="t" id="year">1901</div><div class="t" id="isle">ANTIKYTHERA · GREECE</div>
+<div class="t" id="gears">30 gears</div><div class="t" id="gearsSub">CUT BY HAND</div>
+<div class="t" id="age">2,000+ years</div><div class="t" id="ageSub">made around 150 to 100 BC</div>
+<div class="t" id="final">The first known computer was Greek</div><div class="t" id="finalSub">found at the bottom of the sea</div>
+<script src="../words/antikythera.js"></script>
+<script src="common.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const ctx = $("c").getContext("2d");
+const T = { xray: at("X"), gears: at("30"), age: at("more"), ecl: at("eclipses"), moon: at("moon"),
+            comp: at("world's"), end: WORDS.duration };
+
+// A gear drawn from simple geometry: teeth around a ring, spokes in the middle.
+function gear(x, y, r, teeth, angle, alpha) {
+  ctx.save(); ctx.translate(x, y); ctx.rotate(angle); ctx.globalAlpha = alpha;
+  ctx.strokeStyle = "#e7c27a"; ctx.lineWidth = 4; ctx.beginPath();
+  for (let i = 0; i < teeth * 2; i++) {
+    const a = (i / (teeth * 2)) * Math.PI * 2, rr = i % 2 ? r : r + 12;
+    ctx.lineTo(Math.cos(a) * rr, Math.sin(a) * rr);
+  }
+  ctx.closePath(); ctx.stroke();
+  for (let s = 0; s < 4; s++) { ctx.rotate(Math.PI / 2); ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(r - 14, 0); ctx.stroke(); }
+  ctx.beginPath(); ctx.arc(0, 0, r * 0.22, 0, Math.PI * 2); ctx.stroke(); ctx.restore();
+}
+
+function draw(t) {
+  ctx.clearRect(0, 0, 720, 1280);
+  // Slow push-in on the real fragment; it fades as the gears take over.
+  const zoom = 1 + t * 0.012;
+  $("photo").style.transform = `scale(${zoom})`;
+  $("photo").style.opacity = 1 - 0.75 * prog(t, T.gears - 0.3, 1);
+  $("xray").style.opacity = 0.8 * prog(t, T.xray, 0.5) * (1 - prog(t, T.gears, 1));
+
+  // Rising bubbles all the way through.
+  for (let i = 0; i < 40; i++) {
+    const x = rand(i) * 720, sp = 30 + rand(i + 99) * 70, y = 1300 - ((t * sp + rand(i + 7) * 1300) % 1400);
+    ctx.globalAlpha = 0.25; ctx.fillStyle = "#cfeff0";
+    ctx.beginPath(); ctx.arc(x + Math.sin(t * 2 + i) * 6, y, 2 + rand(i + 3) * 4, 0, 7); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+
+  // Interlocking gears appear on "30" and keep turning; ratios match their tooth counts.
+  const g = ease(prog(t, T.gears, 0.8)) * (1 - prog(t, T.comp, 0.8) * 0.6);
+  if (g > 0) {
+    const spin = (t - T.gears) * 0.8;
+    gear(250, 720, 150, 30, spin, g);
+    gear(482, 640, 90, 18, -spin * 30 / 18 + 0.1, g);
+    gear(470, 870, 70, 14, -spin * 30 / 14, g);
+  }
+  // Eclipse: a dark disc slides over a bright one.
+  const e = prog(t, T.ecl, 1.6) * (1 - prog(t, T.moon + 1.2, 0.5));
+  if (e > 0) {
+    ctx.globalAlpha = Math.min(1, e * 3); ctx.fillStyle = "#f6d98a";
+    ctx.beginPath(); ctx.arc(360, 1080, 60, 0, 7); ctx.fill();
+    ctx.fillStyle = "#04161c"; ctx.beginPath(); ctx.arc(lerp(250, 360, easeIO(e)), 1080, 58, 0, 7); ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  show($("year"), t, 0, at("For") - 0.2, { dy: 0, scale: 1.25 });
+  show($("isle"), t, at("Antikythera") - 0.4, at("For") - 0.2);
+  show($("gears"), t, T.gears, T.age - 0.1, { dy: 0, scale: 1.4 });
+  show($("gearsSub"), t, at("cut"), T.age - 0.1);
+  show($("age"), t, T.age, T.ecl - 0.1, { dy: 0, scale: 1.3 });
+  show($("ageSub"), t, T.age + 0.6, T.ecl - 0.1);
+  show($("final"), t, T.comp, T.end + 1, { dy: 60 });
+  show($("finalSub"), t, at("bottom"), T.end + 1);
+}
+</script></body></html>
