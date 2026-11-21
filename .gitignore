@@ -4,3 +4,6 @@ dist/
 feed-videos/out/
 *.log
 .DS_Store
+promo/promo-graphics.mp4
+promo/wake-promo.mp4
+promo/clips/
